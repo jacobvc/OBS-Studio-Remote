@@ -1,24 +1,36 @@
-.idea
+# build folder
+dist/
+build/
+
+# logs
+logs/
+.cache
 .DS_Store
-.vscode
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# process data
+.pid
+pids
+.pid-lock
+
+# Coverage & Test
+coverage
+.nyc_output
+
+# Dependency folder
 node_modules
-*.map
-/src/compiler/compile/internal_exports.ts
-/compiler.d.ts
-/compiler.*js
-/index.*js
-/ssr.*js
-/action
-/internal
-/store
-/easing
-/motion
-/transition
-/animate
-/scratch/
-/test/*/samples/_
-/yarn-error.log
-_actual*.*
-_output
-/types
+bower_components
+jspm_packages
+
+# Environment files
+.dot
+# Editor and other files
+.idea
+typing
+internal
+.vscode
+*.tgz
 .eslintcache
+.svelte-kit

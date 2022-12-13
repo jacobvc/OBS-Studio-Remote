@@ -1,0 +1,566 @@
+@charset "utf-8";
+
+$light-theme: false;
+
+$theme-color: rgb(61, 61, 145);
+$primary-color: rgb(255, 255, 255);
+
+$menu-color: lighten($theme-color, 15%);
+$control-background: lighten($theme-color, 15%);
+$heading-background: darken($theme-color, 15%);
+$body-background: lighten($theme-color, 30%);
+$primary-border-color: lighten($theme-color, 10%);
+$selected-border-color: $primary-color;
+
+@if $light-theme {
+  $theme-color: rgb(180, 208, 234) !global;
+  $primary-color: black !global;
+
+  $menu-color: lighten($theme-color, 5%) !global;
+  $control-background: lighten($theme-color, 8%) !global;
+  $heading-background: lighten($theme-color, 15%);
+  $body-background: lighten($theme-color, 10%) !global;
+  $primary-border-color: lighten($theme-color, 10%) !global;
+  $selected-border-color: $primary-color !global;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: rotating 10s linear infinite;
+}
+
+.icon-img {
+  max-width: 36px;
+  max-height: 36px;
+  padding: 3px;
+}
+
+.nav {
+  background-color: $menu-color !important;
+  height: fit-content !important;
+}
+
+/* ****************************************** */
+
+body {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  background-color: $body-background;
+  margin: 0;
+  padding: 0;
+}
+
+
+html,
+body,
+p,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+/** A device control is constructed within a
+ * a container class, and is composed of a content-heading and a content-block
+ */
+.container {
+  height: auto;
+  min-width: 200px;
+  max-width: 100%;
+  margin: 1px;
+  background-color: $theme-color;
+  color: $primary-color;
+  display: inline-block;
+  border: 2px solid $primary-border-color;
+  padding: 1px;
+  border-radius: 10px;
+  vertical-align: top;
+
+  .content-flex {
+    display: flex;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 2px;
+  }
+
+  .subpanel-2x5-flow {
+    border-radius: 0px;
+    vertical-align: top;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto);
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 1px;
+  }
+
+  .subpanel-source-btns {
+    grid-template-rows: auto;
+  }
+
+  .content-block {
+    border-radius: 0px;
+    width: fit-content;
+    display: inline-block;
+    vertical-align: top;
+    height: auto;
+    padding: 2px;
+  }
+
+  .content-heading-vertical {
+    text-orientation: mixed;
+    margin-left: 1px;
+    border-radius: 0px 9px 9px 0px;
+    background-color: $heading-background;
+    writing-mode: tb-rl;
+    text-align: center;
+    width: 28px;
+
+    transform: rotate(180deg)
+  }
+
+
+  .content-heading {
+    position: relative;
+    height: 28px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: $heading-background;
+    border-radius: 9px 9px 0px 0px;
+    text-indent: 12px;
+  }
+
+}
+
+.error-report {
+  border: 3px;
+  border-radius: 4px 4px 4px 4px;
+  margin: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  display: inline-block;
+  height: fit-content !important;
+  color: red;
+  height: 1.7em;
+  background-color: cornsilk;
+  vertical-align: top;
+  position: relative;
+}
+
+label {
+  display: inline-block;
+  text-align: right;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.instructions {
+  width: 100%;
+  background-color: $body-background;
+}
+
+select {
+  background: transparent;
+  position: relative;
+  top: 0px;
+  line-height: 1;
+  border: 2;
+  border-radius: 4px;
+  color: $primary-color;
+  background-color: $control-background;
+}
+
+.disabledpanel {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.invisible {
+  visibility: hidden;
+  display: none;
+}
+
+.selected {
+  border-color: $selected-border-color !important;
+  border-width: 4px !important;
+}
+
+.container input[type=range] {
+  left: auto !important;
+  background-color: transparent;
+  color: $primary-color;
+}
+
+input.vertical {
+  transform: translateX(-35px) translateY(50px) rotate(-90deg);
+  width: 98px;
+  height: 28px;
+  vertical-align: top;
+  position: relative;
+}
+
+/***
+ *         _               _  _        
+ *        / \   _   _   __| |(_)  ___  
+ *       / _ \ | | | | / _` || | / _ \ 
+ *      / ___ \| |_| || (_| || || (_) |
+ *     /_/   \_\\__,_| \__,_||_| \___/ 
+ *                                     
+ */
+
+.audio-channel {
+  display: inline-block;
+  position: relative;
+  margin-right: 2px;
+  max-width: 55px;
+  min-width: 10px;
+  height: 128px;
+  max-height: 128px;
+  border: 2;
+  border-radius: 8px;
+  background-color: $control-background;
+}
+
+input.audio {
+  appearance: none;
+  transform: translateX(-35px) translateY(33px) rotate(-90deg);
+}
+
+input.audio::-webkit-slider-runnable-track {
+  background-color: black;
+  height: 2px;
+}
+
+input.audio::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  width: 24px;
+  height: 16px;
+  border: 0;
+  background: url('assets/slider_knob.png');
+  cursor: pointer;
+}
+
+input.audio::-moz-range-thumb {
+  width: 24px;
+  height: 16px;
+  border: 0;
+  background: url('assets/slider_knob.png');
+  cursor: pointer;
+}
+
+.container div progress {
+  vertical-align: top;
+  top: 8px;
+}
+
+progress.vertical {
+  left: -10px;
+  width: 96px;
+  height: 4px;
+  /*border: 1px solid #060707;*/
+  position: relative;
+  margin: 10px auto;
+  background-color: $control-background;
+  box-shadow: 0 0 3px #c3e7a5 inset, 0 0 2px rgba(228, 103, 103, 0.9);
+  border-radius: 0px;
+  padding: 0px;
+  transform: rotate(-90deg);
+  display: inline-block;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* value: */
+progress::-webkit-progress-value {
+  background-color: rgb(37, 228, 53) !important;
+}
+
+progress::-moz-progress-bar {
+  background-color: rgb(37, 228, 53) !important;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: rgb(37, 228, 53);
+}
+
+/* background: */
+progress::-webkit-progress-bar {
+  background-color: black;
+  width: 100%;
+}
+
+progress {
+  background-color: $body-background;
+}
+
+/***
+ *      ____          _    _                
+ *     | __ )  _   _ | |_ | |_  ___   _ __  
+ *     |  _ \ | | | || __|| __|/ _ \ | '_ \ 
+ *     | |_) || |_| || |_ | |_| (_) || | | |
+ *     |____/  \__,_| \__| \__|\___/ |_| |_|
+ *                                          
+ */
+
+.ptz-velocity {
+  display: inline-block;
+  top: -98px;
+  position: relative;
+  width: 36px;
+}
+
+.ptz-btns-group {
+  display: inline-block;
+  position: relative;
+
+  top: -22px;
+  max-width: 45px;
+  min-width: 0px;
+}
+
+.pan-btn-pos {
+  position: relative;
+  top: -44px;
+}
+
+.ptz-btn {
+  height: 45px;
+  width: 45px;
+  border-radius: 10px;
+  background-color: rgba($control-background, 15%);
+  border-color: $primary-border-color;
+}
+
+.btn-default {
+  display: inline-flex;
+  height: 35px;
+  min-width: 60px;
+  margin: 1px;
+  padding: 8px;
+  border-radius: 10px;
+  border-color: $primary-border-color;
+  background-color: $control-background;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn-in-h2 {
+  line-height: 6px;
+  height: 23px;
+  //float: right; 
+  margin-right: 8px
+}
+
+.btn-error {
+  line-height: 10px;
+  height: 25px;
+  width: 25px;
+  border-radius: 12px;
+  float: right;
+  margin-left: 8px;
+  min-width: 20px;
+}
+
+
+.btn-default:disabled,
+.btn-default[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
+.btn-group {
+  display: block;
+  border-radius: 10px;
+  background-color: $theme-color;
+  color: $primary-color;
+  border: 1px solid $primary-border-color;
+  padding: 2px;
+  margin: 2px;
+  text-align: center;
+}
+
+.audio-btn {
+  border-color: $primary-border-color;
+  background-color: $control-background;
+  color: $primary-color;
+  width: 100%;
+  //height: 20px;
+  background-size: 55px 20px;
+}
+
+.audio-btn-unmuted {
+  box-shadow: 0px 0px 10px lime;
+  background-color: lime;
+  color: black;
+}
+
+.btn-classic {
+  background-image: url('assets/blank_button.png');
+  box-shadow: none;
+  color: black;
+  padding: 2px;
+  vertical-align: top;
+  margin: 1px;
+  width: 82px;
+  height: 82px;
+  background-size: 80px 80px;
+  border-color: $primary-border-color;
+}
+
+.source-btn-size {
+  width: 60px;
+  height: 60px;
+  background-size: 60px 60px;
+  font-size: 0.7rem;
+}
+
+.preview-btn-on {
+  background-image: url('assets/blank_green_button.png');
+  box-shadow: 0px 0px 10px lime;
+}
+
+.program-btn-on {
+  background-image: url('assets/blank_red_button.png');
+  box-shadow: 0px 0px 10px red;
+}
+
+.source-btn-on {
+  background-image: url('assets/blank_blue_button.png');
+  box-shadow: 0px 0px 10px blue;
+}
+
+button {
+  clear: both;
+  height: 24px;
+  border-radius: 4px;
+  padding: 0px;
+  margin: 0px;
+  background-color: $control-background;
+  color: $primary-color;
+}
+
+
+
+/***
+ *      ____            _  _         _     
+ *     / ___|__      __(_)| |_  ___ | |__  
+ *     \___ \\ \ /\ / /| || __|/ __|| '_ \ 
+ *      ___) |\ V  V / | || |_| (__ | | | |
+ *     |____/  \_/\_/  |_| \__|\___||_| |_|
+ *                                         
+ */
+.switch-container {
+  padding: 3px;
+  margin: 1px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid $primary-border-color;
+  background-color: $theme-color;
+  border-radius: 6px;
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: red;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  background-color: $control-background;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switch-label {
+  display: block;
+  position: relative;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+}
+
+input:checked+.slider {
+  background-color: limegreen;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px red;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+/* Rounded slider */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+  border: 1px solid black;
+}
