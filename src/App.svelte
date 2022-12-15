@@ -287,8 +287,11 @@
     {/if}
     <button
       class="btn-default"
-      style="float:right; margin-right:8px; margin-top: 5px; line-height: .9; font-size:x-large"
-      on:click="{() => (openMenu = !openMenu)}">{openMenu ? '-' : '+'}</button>
+      style="float:right; margin-right:8px; margin-top:5px; padding-top: 5px;"
+      on:click="{() => (openMenu = !openMenu)}">
+      <img src="{openMenu 
+      ? 'menu-x-50.png' 
+      : 'menu-hamburger-24.png'}" alt="menu" width="24" /></button>
     <hr />
 
     <div class:invisible="{!openMenu}">

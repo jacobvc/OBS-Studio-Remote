@@ -35,14 +35,28 @@ export const help_data = [
 { topic: `Connecting`,
  text: `<h2>Connecting</h2>
 <p>Upon launch, IF there was a previous websocket connection, an automatic connect attempt is performed using the connection configuration (IP:Port, password) stored in browser local data.</p>
-<p>If there was not a previous connection, or the connection attemp fails, the manual connect panel will be displayed. Connect by pressing the "Connect" button</p>
+<p>If there was not a previous connection, or the connection attempt fails, the manual connect panel will be displayed. Connect by pressing the "Connect" button</p>
 <p><img src="connect.jpg" ></p>
 <p>The actual operation specifics can be configured as specified in "Configuration and Settings".</p>`},
+{ topic: `OBS Studio Operation`,
+ text: `<h2>OBS Studio Operation</h2>
+<p>Scene View displays the selected scene next to a classic button for each scene that exists in OBS Studio. Pressing the button selects the scene for that view.</p>
+<p>When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.</p>
+<p><img src="sceneview.jpg" ></p>
+<p>When Show Sourcws is enabled, a button is enabled for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.</p>
+<p><img src="sceneviewsources.jpg" ></p>`},
+{ topic: `VISCA Camera Operation`,
+ text: `<h2>VISCA Camera Operation</h2>
+<p><img src="cameraview.jpg" ></p>`},
+{ topic: `MIDI Mixer Operation`,
+ text: `<h2>MIDI Mixer Operation</h2>
+<p><img src="mixerview.jpg" ></p>`},
 { topic: `Configuration and Settings`,
  text: `<h2>Configuration and Settings</h2>
-<p>Expand the settings panel by pressing the '+' button at the right edge of the page heading.</p>
+<p><img src="heading.jpg" ></p>
+<p>Expand the settings panel by pressing the hamburger menu button at the right edge of the page heading.</p>
+<p><img src="settingsview.jpg" ></p>
 <p>The Settings section of the panel contains:</p>
-<p><img src="config.jpg" ></p>
 <ul>
 <li>Show Sources Configuration: Display the OBS Studio source buttons for the 
 displayed scene(s) and allow changing which source are active fr each scene.</li>
@@ -69,17 +83,33 @@ displayed scene(s) and allow changing which source are active fr each scene.</li
 <ul>
 <li>Persisted data is saved to OBS Studio, but local data is not.</li>
 <li>Persisted data is retrieved from the slot at OBS Studio connect time</li>
-<li>Persisted data may be saved or loaded manually, but changes are not persisted unless Sync is enabled.</li>
+<li>Persisted data may be saved or loaded manually, but changes are not automatically persisted unless Sync is enabled.</li>
 </ul>`},
 { topic: `Hotkeys`,
  text: `<h2>Hotkeys</h2>
+<p>Hotkeys are presented as a horizontally aligned set of Hotkey group panels. </p>
+<p>A hotkey panel is a bordered panel containing a group of one or more buttons 
+below a label. A button press results in firing the associated hotkey.</p>
+<p>The default configuration includes an example "Change Slide" group with a '&lt;'
+button connected to the SlideShow.PreviousSlide named hotkey and a '&gt;' button
+connected to the SlideSHow.NextSlide named hotkey.</p>
 <p><img src="hotkeys.jpg" ></p>
-<p><img src="edithotkeys.jpg" ></p>`},
-{ topic: `OBS Studio Operation`,
- text: `<h2>OBS Studio Operation</h2>`},
-{ topic: `VISCA Camera Operation`,
- text: `<h2>VISCA Camera Operation</h2>`},
-{ topic: `MIDI Mixer Operation`,
- text: `<h2>MIDI Mixer Operation</h2>`},
+<p>When the Edit Hotkeys switch is turned on, the hotkey display changes to edit
+mode. </p>
+<p><img src="edithotkeys.jpg" ></p>
+<p>Edit mode supports selecting whether the hotkeys appear above or below the
+(preview and program) scene displays, adding, removing, and ordering hotkey 
+panels, editing button and panel labels, and defining hotkey binding.</p>
+<p>In this example, the 'Change Slide' panel and '&lt;' button are in scope. Any of 
+the labels may be changed by selecting the test an typing. Either the '&lt;' button
+or the entire hotkey panel can be removed by pressing a 'Remove' button, and
+the hotkey connection can be configured. In the case of a named hotkey, a
+dropdown list of all available named hotkeys is provided. Pressing the '+' 
+button will add another button.</p>
+<p>Pressing the '+' button in the heading adds a 'New Group' containing one 
+'New Key'. </p>
+<p><img src="hotkeysnew.jpg" ></p>
+<p>This example has configured a key sequence (NOT Named Hotkey) as Control-A.
+<a href="https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h">Look here for available key sequence key values.</a></p>`},
 ]
 export default help_data;

@@ -130,7 +130,8 @@
                 <div
                     class="btn-group"
                     class:selected="{group === thisGroup}"
-                    on:click="{(e) => editGroup(e, group)}">
+                    on:click="{(e) => editGroup(e, group)}"
+                    on:keydown="{(e) => editGroup(e, group)}">
                     <span contenteditable bind:innerHTML="{group.label}"></span
                     ><br />
                     {#each group.buttons as button}

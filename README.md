@@ -44,18 +44,39 @@ This project requires OBS websocket v5. This is OBS Studio version dependent, me
 ## Connecting
 Upon launch, IF there was a previous websocket connection, an automatic connect attempt is performed using the connection configuration (IP:Port, password) stored in browser local data.
 
-If there was not a previous connection, or the connection attemp fails, the manual connect panel will be displayed. Connect by pressing the "Connect" button
+If there was not a previous connection, or the connection attempt fails, the manual connect panel will be displayed. Connect by pressing the "Connect" button
 
 <img src="public/connect.jpg" >
 
 The actual operation specifics can be configured as specified in "Configuration and Settings".
 
+## OBS Studio Operation
+Scene View displays the selected scene next to a classic button for each scene that exists in OBS Studio. Pressing the button selects the scene for that view.
+
+When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.
+
+<img src="public/sceneview.jpg" >
+
+When Show Sourcws is enabled, a button is enabled for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.
+
+<img src="public/sceneviewsources.jpg" >
+
+## VISCA Camera Operation
+
+<img src="public/cameraview.jpg" >
+
+## MIDI Mixer Operation
+
+<img src="public/mixerview.jpg" >
+
 ## Configuration and Settings
-Expand the settings panel by pressing the '+' button at the right edge of the page heading.
+<img src="public/heading.jpg" >
+
+Expand the settings panel by pressing the hamburger menu button at the right edge of the page heading.
+
+<img src="public/settingsview.jpg" >
 
 The Settings section of the panel contains:
-
-<img src="public/config.jpg" >
  
 - Show Sources Configuration: Display the OBS Studio source buttons for the 
 displayed scene(s) and allow changing which source are active fr each scene.
@@ -123,14 +144,7 @@ Pressing the '+' button in the heading adds a 'New Group' containing one
 <img src="public/hotkeysnew.jpg" >
 
 This example has configured a key sequence (NOT Named Hotkey) as Control-A.
-
-[Look here for available hotkey key sequence values.](https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h)
-
-## OBS Studio Operation
-
-## VISCA Camera Operation
-
-## MIDI Mixer Operation
+[Look here for available key sequence key values.](https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h)
 
 # Design
 
@@ -149,6 +163,10 @@ The modules include:
 A trivial python script, parse_md.py is provided to parse THIS file and to create a new lib/help.js
 ```
 python parse_md.py
+```
+It requires the markdown package
+```
+pip install markdown
 ```
 The script extracts each section starting with a level 2 heading and ignores level 1 headings. It creates a topic using the text of each level 2 heading, and sets the content to the section content markdown-processed-to-html. 
 
