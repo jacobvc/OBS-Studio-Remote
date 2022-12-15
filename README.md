@@ -1,6 +1,14 @@
 # OBS Studio Remote
 
-#### Control [OBS Studio](https://obsproject.com/), serial [VISCA cameras, and MIDI mixers](https://github.com/jacobvc/AvDeviceControl) remotely
+OBS Studio remote is a websocket based web application designed to connect with
+[OBS Studio](https://obsproject.com/) and 
+[AvDeviceControl](https://github.com/jacobvc/AvDeviceControl) 
+to provide an integrated control surface for OBS Studio, VISCA 
+camera, and MIDI audio device operations.
+
+The primary use case anticipates a need to present a different scene on the
+local projector than the one being livecast via the program scene. It 
+supports, for example, the ability to change the Program scene without impacting the content of the preview scene.
 
 ### Live URL: [http://obs.spiritofpeacecommunity.org/](http://obs.spiritofpeacecommunity.org/)
 
@@ -18,7 +26,7 @@
 
 ### OBS Studio
 - Control Preview (Projector) and Program scenes independently
-- Change source settings for currently displayed Preview and Program views
+- Change source settings of currently displayed Preview and/or Program views
 - Support for Studio Mode (preview and program scenes)
 - Live view of preview & program, updating 1 fps
 - User defined hotkey configuration (both "named" and "keybord")
@@ -50,22 +58,22 @@ If there was not a previous connection, or the connection attempt fails, the man
 
 The actual operation specifics can be configured as specified in "Configuration and Settings".
 
-## OBS Studio Operation
+## OBS Studio Scene View
 Scene View displays the selected scene next to a classic button for each scene that exists in OBS Studio. Pressing the button selects the scene for that view.
 
 When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.
 
 <img src="public/sceneview.jpg" >
 
-When Show Sourcws is enabled, a button is enabled for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.
+When Show Sources is enabled, a button is presented for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.
 
 <img src="public/sceneviewsources.jpg" >
 
-## VISCA Camera Operation
+## AvDeviceControl VISCA Camera View
 
 <img src="public/cameraview.jpg" >
 
-## MIDI Mixer Operation
+## AvDeviceControl MIDI Mixer View
 
 <img src="public/mixerview.jpg" >
 
