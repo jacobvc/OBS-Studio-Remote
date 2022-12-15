@@ -2,15 +2,30 @@
 
 $light-theme: false;
 
-$theme-color: rgb(61, 61, 145);
-$primary-color: rgb(255, 255, 255);
+:root {
+  --theme-color-h: 240;
+  --theme-color-s: 52%;
+  --theme-color-l: 48%;
+  --theme-color-hs: var(--theme-color-h), var(--theme-color-s);
+  --theme-color-hsl: var(--theme-color-hs), var(--theme-color-l);
 
-$menu-color: lighten($theme-color, 15%);
+  --theme-color: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .8));
+  --primary-color:rgb(255,255,255);
+
+  --selected-border-color: var(--primary-color);
+  --menu-color: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.2));
+  --control-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.1));
+  --heading-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .5));
+  --body-background:hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.6));
+  --primary-border-color:hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .9));
+  }
+/*
+$theme-color: hsl(240, 40.8, 40.4);
+
 $control-background: lighten($theme-color, 15%);
 $heading-background: darken($theme-color, 15%);
 $body-background: lighten($theme-color, 30%);
 $primary-border-color: lighten($theme-color, 10%);
-$selected-border-color: $primary-color;
 
 @if $light-theme {
   $theme-color: rgb(180, 208, 234) !global;
@@ -21,9 +36,8 @@ $selected-border-color: $primary-color;
   $heading-background: lighten($theme-color, 15%);
   $body-background: lighten($theme-color, 10%) !global;
   $primary-border-color: lighten($theme-color, 10%) !global;
-  $selected-border-color: $primary-color !global;
 }
-
+*/
 @keyframes rotating {
   from {
     transform: rotate(0deg);
@@ -45,7 +59,7 @@ $selected-border-color: $primary-color;
 }
 
 .nav {
-  background-color: $menu-color !important;
+  background-color: var(--menu-color) !important;
   height: fit-content !important;
 }
 
@@ -55,7 +69,7 @@ body {
   font-size: 1em;
   font-weight: 400;
   line-height: 1.5em;
-  background-color: $body-background;
+  background-color: var(--body-background);
   margin: 0;
   padding: 0;
 }
@@ -92,10 +106,10 @@ h6 {
   min-width: 200px;
   max-width: 100%;
   margin: 1px;
-  background-color: $theme-color;
-  color: $primary-color;
+  background-color: var(--theme-color);
+  color: var(--primary-color);
   display: inline-block;
-  border: 2px solid $primary-border-color;
+  border: 2px solid var(--primary-border-color);
   padding: 1px;
   border-radius: 10px;
   vertical-align: top;
@@ -134,7 +148,7 @@ h6 {
     text-orientation: mixed;
     margin-left: 1px;
     border-radius: 0px 9px 9px 0px;
-    background-color: $heading-background;
+    background-color: var(--heading-background);
     writing-mode: tb-rl;
     text-align: center;
     width: 28px;
@@ -149,7 +163,7 @@ h6 {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    background-color: $heading-background;
+    background-color: var(--heading-background);
     border-radius: 9px 9px 0px 0px;
     text-indent: 12px;
   }
@@ -181,7 +195,7 @@ label {
 
 .instructions {
   width: 100%;
-  background-color: $body-background;
+  background-color: var(--body-background) !important;
 }
 
 select {
@@ -191,8 +205,8 @@ select {
   line-height: 1;
   border: 2;
   border-radius: 4px;
-  color: $primary-color;
-  background-color: $control-background;
+  color: var(--primary-color);
+  background-color: var(--control-background);
 }
 
 .disabledpanel {
@@ -206,14 +220,14 @@ select {
 }
 
 .selected {
-  border-color: $selected-border-color !important;
+  border-color: var(--selected-border-color) !important;
   border-width: 4px !important;
 }
 
 .container input[type=range] {
   left: auto !important;
   background-color: transparent;
-  color: $primary-color;
+  color: var(--primary-color);
 }
 
 input.vertical {
@@ -243,7 +257,7 @@ input.vertical {
   max-height: 128px;
   border: 2;
   border-radius: 8px;
-  background-color: $control-background;
+  background-color: var(--control-background);
 }
 
 input.audio {
@@ -287,7 +301,7 @@ progress.vertical {
   /*border: 1px solid #060707;*/
   position: relative;
   margin: 10px auto;
-  background-color: $control-background;
+  background-color: var(--control-background);
   box-shadow: 0 0 3px #c3e7a5 inset, 0 0 2px rgba(228, 103, 103, 0.9);
   border-radius: 0px;
   padding: 0px;
@@ -317,7 +331,7 @@ progress::-webkit-progress-bar {
 }
 
 progress {
-  background-color: $body-background;
+  background-color: var(--body-background);
 }
 
 /***
@@ -354,8 +368,8 @@ progress {
   height: 45px;
   width: 45px;
   border-radius: 10px;
-  background-color: rgba($control-background, 15%);
-  border-color: $primary-border-color;
+  background-color: rgba(var(--control-background), 15%);
+  border-color: var(--primary-border-color);
 }
 
 .btn-default {
@@ -365,8 +379,8 @@ progress {
   margin: 1px;
   padding: 8px;
   border-radius: 10px;
-  border-color: $primary-border-color;
-  background-color: $control-background;
+  border-color: var(--primary-border-color);
+  background-color: var(--control-background);
   align-items: center;
   flex-direction: column;
 }
@@ -400,18 +414,18 @@ progress {
 .btn-group {
   display: block;
   border-radius: 10px;
-  background-color: $theme-color;
-  color: $primary-color;
-  border: 1px solid $primary-border-color;
+  background-color: var(--theme-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-border-color);
   padding: 2px;
   margin: 2px;
   text-align: center;
 }
 
 .audio-btn {
-  border-color: $primary-border-color;
-  background-color: $control-background;
-  color: $primary-color;
+  border-color: var(--primary-border-color);
+  background-color: var(--control-background);
+  color: var(--primary-color);
   width: 100%;
   //height: 20px;
   background-size: 55px 20px;
@@ -433,7 +447,7 @@ progress {
   width: 82px;
   height: 82px;
   background-size: 80px 80px;
-  border-color: $primary-border-color;
+  border-color: var(--primary-border-color);
 }
 
 .source-btn-size {
@@ -464,8 +478,8 @@ button {
   border-radius: 4px;
   padding: 0px;
   margin: 0px;
-  background-color: $control-background;
-  color: $primary-color;
+  background-color: var(--control-background);
+  color: var(--primary-color);
 }
 
 
@@ -485,8 +499,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid $primary-border-color;
-  background-color: $theme-color;
+  border: 2px solid var(--primary-border-color);
+  background-color: var(--theme-color);
   border-radius: 6px;
 }
 
@@ -527,7 +541,7 @@ button {
   height: 20px;
   width: 20px;
   left: 0px;
-  background-color: $control-background;
+  background-color: var(--control-background);
   -webkit-transition: .4s;
   transition: .4s;
 }
