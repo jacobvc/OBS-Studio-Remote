@@ -33,7 +33,8 @@
         let group = { label: 'New Group', buttons: [] };
         $hotkeys.groups.push(group);
         thisGroup = group;
-        thisButton = null;
+        newButton(group);
+        //thisButton = null;
         hotkeys.set($hotkeys);
     }
     function newButton(group) {

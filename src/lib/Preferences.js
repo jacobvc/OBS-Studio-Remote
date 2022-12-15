@@ -3,8 +3,11 @@ import { writable, get } from 'svelte/store'
 
 let settings;
 
-if (localStorage.settings) {
-  settings = JSON.parse(localStorage.settings);
+let fileHandle
+
+
+if (localStorage.stringifiedSettings) {
+  settings = JSON.parse(localStorage.stringifiedSettings);
 }
 else {
   settings = {};
@@ -46,14 +49,8 @@ export let obsPrefsSync = writable(localStorage.obsPrefsSync === 'true' || false
 obsPrefsSync.subscribe((value) => { localStorage.obsPrefsSync = value; });
 
 // 
-// Persistent preferences - OBS Studio Persistent Data
+// Persistent preferences - Persisted externally
 //
-function persistSettings() {
-  localStorage.settings = JSON.stringify(settings);
-  if (get(obsDataSlot) && get(obsPrefsSync) && get(obsConnected)) {
-    saveSettingsToObs();
-  }
-}
 
 // Configure whether to show OBS scene sources
 export let showSources = writable(settings.showSources === 'true' || false)
@@ -80,12 +77,23 @@ editHotkeys.subscribe((value) => {
   }
 });
 
+
+// 
+// Persistent support functions
+//
+
+function persistSettings() {
+  localStorage.stringifiedSettings = JSON.stringify(settings);
+  if (get(obsDataSlot) && get(obsPrefsSync) && get(obsConnected)) {
+    saveSettingsToObs();
+  }
+}
 export async function saveSettingsToObs() {
   if (get(obsDataSlot)) {
     obsSendCommand("SetPersistentData", {
       realm: "OBS_WEBSOCKET_DATA_REALM_GLOBAL",
       slotName: get(obsDataSlot).toLowerCase(),
-      slotValue: localStorage.settings
+      slotValue: localStorage.stringifiedSettings
     })
   }
   else {
@@ -100,7 +108,7 @@ export async function loadSettingsFromObs(quiet) {
       slotName: get(obsDataSlot).toLowerCase(),
     });
     if (tmp.slotValue) {
-      localStorage.settings = tmp.slotValue;
+      localStorage.stringifiedSettings = tmp.slotValue;
       return true;
     }
     else if (!quiet) {
@@ -113,17 +121,39 @@ export async function loadSettingsFromObs(quiet) {
   return false;
 }
 
+/* showSaveFilePicker doesn't seem to work very well
+ * Hide import / export buttons in App.svelte, and 
+ * comment out these functions for now
+ */ 
+/*
 export async function exportSettings() {
-  runtimeError.set('Not implemented');
+  [fileHandle] = await window.showSaveFilePicker();
+   const writable = await fileHandle.createWritable();
+  await writable.write(JSON.stringify(localStorage));
+  await writable.close();
 }
 
 export async function importSettings() {
-  runtimeError.set('Not implemented');
+  [fileHandle] = await window.showOpenFilePicker();
+  // get file contents
+  const fileData = await fileHandle.getFile();
+  let contents = await fileData.text();
+  if (contents) {
+    let obj = JSON.parse(contents);
+    if (obj) {
+      localStorage = obj;
+      location.reload();
+      return true;
+    }
+  }
+  return false;
 }
+*/
 
 //
 // OBS Studio interface / connection
 //
+
 export const obs = new OBSWebSocket()
 
 export async function obsSendCommand(command, params) {
@@ -147,7 +177,7 @@ obs.on('ConnectionError', err => {
 //
 // A/V devices interface / connection
 //
-// @ts-ignore
+
 export const avDevices = new OBSWebSocket();
 
 export async function avdSendCommand(command, params) {

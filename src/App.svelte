@@ -33,8 +33,8 @@
     obsPrefsSync,
     saveSettingsToObs,
     loadSettingsFromObs,
-    exportSettings,
-    importSettings,
+    // exportSettings,
+    // importSettings,
   } from './lib/Preferences.js';
   import { writable } from 'svelte/store';
   import { bind, loop_guard, subscribe, toggle_class } from 'svelte/internal';
@@ -326,17 +326,20 @@
                 class="btn-default"
                 on:click="{() => {
                   if (loadSettingsFromObs(false)) location.reload();
-                }}"
-                >Load
+                }}">
+                Load
               </button>
             {/if}
           {/if}
-          <button class="btn-default" on:click="{() => importSettings()}">
+          <!--
+          <button class="btn-default" on:click="{() => {
+            if (importSettings()) location.reload(); }}">
             Import
           </button>
           <button class="btn-default" on:click="{() => exportSettings()}">
             Export
           </button>
+          -->
         </div>
       </div>
       <div class="container">
@@ -369,12 +372,12 @@
           {#if $useAv}
             AND A/V Devices -
           {/if}
-          Remote Connect
+          Connect
         </center>
       </h3>
 
       {#if document.location.protocol === 'https:'}
-        <div class="notification is-danger">
+        <div class="instructions">
           You are checking this page on a secure HTTPS connection. That's great,
           but it means you can
           <strong>only</strong>
