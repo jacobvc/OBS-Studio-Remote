@@ -8,9 +8,10 @@
   import ObsMain from './lib/ObsMain.svelte';
   import Switch from './lib/Switch.svelte';
   import help_data from './lib/help';
+
   //import Icon from 'mdi-svelte'
 
-  import { onMount } from 'svelte';
+  import { onMount, setContext, getContext } from 'svelte';
   import {
     obs,
     avDevices,
@@ -35,19 +36,20 @@
     loadSettingsFromObs,
     // exportSettings,
     // importSettings,
+    themeHue,
   } from './lib/Preferences.js';
   import { writable } from 'svelte/store';
   import { bind, loop_guard, subscribe, toggle_class } from 'svelte/internal';
 
   import { compareVersions } from 'compare-versions';
   import Hotkey from './lib/Hotkey.svelte';
-
+  
   //import {
   //  mdiToggleSwitch, mdiToggleSwitchOffOutline
   //} from '@mdi/js'
   let tips = writable();
   let help_text;
-
+  
   let heartbeat = {};
   let heartbeatInterval;
 
@@ -243,6 +245,8 @@
     //
     //
 
+    setHue();
+    
     if ($obsAddress !== '') {
       await connect();
     }
@@ -250,6 +254,10 @@
       avdConnect();
     }
   });
+
+  function setHue() {
+    document.documentElement.style.setProperty('--theme-color-h', $themeHue);
+  }
 
   function ShowTip() {
     if ($tips) {
@@ -287,7 +295,7 @@
     {/if}
     <button
       class="btn-default"
-      style="float:right; margin-right:8px; margin-top:5px; padding-top: 5px;"
+      style="float:right; margin-right:8px; margin-top:5px; padding-top: 3px;"
       on:click="{() => (openMenu = !openMenu)}">
       <img src="{openMenu 
       ? 'menu-x-50.png' 
@@ -346,7 +354,11 @@
         </div>
       </div>
       <div class="container">
-        <div class="subpanel-2x5-flow">
+        <div class="subpanel-3row-flow">
+          <span>Color:<input type="range" min="0" max="360"
+            on:change="{() => setHue()}"
+            on:pointermove="{() => setHue()}"
+            bind:value="{$themeHue}" /></span>
           {#if $obsConnected}
             <button class="btn-default" on:click="{() => disconnect()}">
               Disconnect OBS Studio
@@ -410,14 +422,14 @@
               <input
                 id="host"
                 bind:value="{$obsAddress}"
-                type="text"
+                type="text" size="15"
                 autocomplete=""
                 placeholder="localhost:4455" />
-              Password (if reqd)
+              Password
               <input
                 id="password"
                 bind:value="{$obsPassword}"
-                type="password"
+                type="password" size="10"
                 autocomplete="current-password"
                 placeholder="Empty if none" />
               <button class="btn-default">Connect</button>
@@ -437,14 +449,14 @@
               <input
                 id="avdHost"
                 bind:value="{$avdAddress}"
-                type="text"
+                type="text" size="15"
                 autocomplete=""
                 placeholder="localhost:4443" />
-              Password (if reqd)
+              Password 
               <input
                 id="avdPassword"
                 bind:value="{$avdPassword}"
-                type="password"
+                type="password" size="10"
                 autocomplete="current-avd-password"
                 placeholder="Empty if none" />
               <button class="btn-default">Connect</button>

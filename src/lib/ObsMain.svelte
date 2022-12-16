@@ -180,7 +180,7 @@
     <div class="content-flex">
       <h2 class="content-heading-vertical">Projector</h2>
       <img bind:this="{preview}" height="{imageHeight}" alt="Preview" />
-      <div class="subpanel-2x5-flow">
+      <div class="subpanel-2row-flow">
         {#if scenes}
           {#each scenes as scene}
             <button
@@ -196,7 +196,7 @@
     {#if previewSources && $showSources}
       <div class="content-flex">
         <h2 class="content-heading-vertical">Source</h2>
-        <div class="subpanel-2x5-flow subpanel-source-btns">
+        <div class="subpanel-source-btns">
           {#each previewSources as item}
             <button
               class:source-btn-on="{item.sceneItemEnabled}"
@@ -220,7 +220,7 @@
   <div class="content-flex">
     <h2 class="content-heading-vertical">Program</h2>
     <img bind:this="{program}" height="{imageHeight}" alt="Program" />
-    <div class="subpanel-2x5-flow">
+    <div class="subpanel-2row-flow">
       {#if scenes}
         {#each scenes as scene}
           <button
@@ -236,7 +236,7 @@
   {#if programSources && $showSources}
     <div class="content-flex">
       <h2 class="content-heading-vertical">Source</h2>
-      <div class="subpanel-2x5-flow subpanel-source-btns">
+      <div class="subpanel-source-btns">
         {#each programSources as item}
           <button
             class:source-btn-on="{item.sceneItemEnabled}"

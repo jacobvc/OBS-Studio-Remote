@@ -60,6 +60,10 @@ export let useAv = writable(settings.useAv === 'true' || false);
 useAv.subscribe((value) => {
   settings.useAv = String(value); persistSettings();
 });
+// Configure whether to show OBS scene sources
+export let themeHue = writable(settings.themeHue || '240')
+themeHue.subscribe((value) => { settings.themeHue = value; persistSettings(); });
+
 
 // Hotkey configuration
 export let hotkeys = writable(settings.hotkeys

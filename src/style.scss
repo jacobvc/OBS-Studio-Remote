@@ -1,43 +1,24 @@
 @charset "utf-8";
 
-$light-theme: false;
-
 :root {
   --theme-color-h: 240;
-  --theme-color-s: 52%;
-  --theme-color-l: 48%;
+  --theme-color-s: 50%;
+  --theme-color-l: 50%;
   --theme-color-hs: var(--theme-color-h), var(--theme-color-s);
   --theme-color-hsl: var(--theme-color-hs), var(--theme-color-l);
 
-  --theme-color: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .8));
-  --primary-color:rgb(255,255,255);
+  --text-color: white;
 
-  --selected-border-color: var(--primary-color);
-  --menu-color: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.2));
-  --control-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.1));
+  --body-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.6));
+  --nav-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.2));
+  --container-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .8));
   --heading-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .5));
-  --body-background:hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.6));
-  --primary-border-color:hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .9));
-  }
-/*
-$theme-color: hsl(240, 40.8, 40.4);
+  --control-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1));
 
-$control-background: lighten($theme-color, 15%);
-$heading-background: darken($theme-color, 15%);
-$body-background: lighten($theme-color, 30%);
-$primary-border-color: lighten($theme-color, 10%);
-
-@if $light-theme {
-  $theme-color: rgb(180, 208, 234) !global;
-  $primary-color: black !global;
-
-  $menu-color: lighten($theme-color, 5%) !global;
-  $control-background: lighten($theme-color, 8%) !global;
-  $heading-background: lighten($theme-color, 15%);
-  $body-background: lighten($theme-color, 10%) !global;
-  $primary-border-color: lighten($theme-color, 10%) !global;
+  --border-color: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.5));
+  --selected-border-color: var(--text-color);
 }
-*/
+
 @keyframes rotating {
   from {
     transform: rotate(0deg);
@@ -59,7 +40,7 @@ $primary-border-color: lighten($theme-color, 10%);
 }
 
 .nav {
-  background-color: var(--menu-color) !important;
+  background-color: var(--nav-background) !important;
   height: fit-content !important;
 }
 
@@ -106,10 +87,10 @@ h6 {
   min-width: 200px;
   max-width: 100%;
   margin: 1px;
-  background-color: var(--theme-color);
-  color: var(--primary-color);
+  background-color: var(--container-background);
+  color: var(--text-color);
   display: inline-block;
-  border: 2px solid var(--primary-border-color);
+  border: 2px solid var(--border-color);
   padding: 1px;
   border-radius: 10px;
   vertical-align: top;
@@ -121,7 +102,16 @@ h6 {
     padding: 2px;
   }
 
-  .subpanel-2x5-flow {
+  .subpanel-3row-flow {
+    border-radius: 0px;
+    vertical-align: top;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto);
+    grid-template-rows: repeat(3, auto);
+    grid-gap: 1px;
+  }
+  .subpanel-2row-flow {
     border-radius: 0px;
     vertical-align: top;
     display: grid;
@@ -195,7 +185,7 @@ label {
 
 .instructions {
   width: 100%;
-  background-color: var(--body-background) !important;
+  background-color: whitesmoke;
 }
 
 select {
@@ -205,7 +195,7 @@ select {
   line-height: 1;
   border: 2;
   border-radius: 4px;
-  color: var(--primary-color);
+  color: var(--text-color);
   background-color: var(--control-background);
 }
 
@@ -227,7 +217,7 @@ select {
 .container input[type=range] {
   left: auto !important;
   background-color: transparent;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 input.vertical {
@@ -369,7 +359,7 @@ progress {
   width: 45px;
   border-radius: 10px;
   background-color: rgba(var(--control-background), 15%);
-  border-color: var(--primary-border-color);
+  border-color: var(--border-color);
 }
 
 .btn-default {
@@ -379,7 +369,7 @@ progress {
   margin: 1px;
   padding: 8px;
   border-radius: 10px;
-  border-color: var(--primary-border-color);
+  border-color: var(--border-color);
   background-color: var(--control-background);
   align-items: center;
   flex-direction: column;
@@ -414,18 +404,18 @@ progress {
 .btn-group {
   display: block;
   border-radius: 10px;
-  background-color: var(--theme-color);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-border-color);
+  background-color: var(--container-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   padding: 2px;
   margin: 2px;
   text-align: center;
 }
 
 .audio-btn {
-  border-color: var(--primary-border-color);
+  border-color: var(--border-color);
   background-color: var(--control-background);
-  color: var(--primary-color);
+  color: var(--text-color);
   width: 100%;
   //height: 20px;
   background-size: 55px 20px;
@@ -447,7 +437,7 @@ progress {
   width: 82px;
   height: 82px;
   background-size: 80px 80px;
-  border-color: var(--primary-border-color);
+  border-color: var(--border-color);
 }
 
 .source-btn-size {
@@ -479,7 +469,7 @@ button {
   padding: 0px;
   margin: 0px;
   background-color: var(--control-background);
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 
@@ -499,8 +489,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid var(--primary-border-color);
-  background-color: var(--theme-color);
+  border: 2px solid var(--border-color);
+  background-color: var(--container-background);
   border-radius: 6px;
 }
 
