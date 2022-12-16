@@ -5,6 +5,8 @@ let settings;
 
 let fileHandle
 
+export const defaultHue = 240;
+
 
 if (localStorage.stringifiedSettings) {
   settings = JSON.parse(localStorage.stringifiedSettings);
@@ -61,7 +63,7 @@ useAv.subscribe((value) => {
   settings.useAv = String(value); persistSettings();
 });
 // Configure whether to show OBS scene sources
-export let themeHue = writable(settings.themeHue || '240')
+export let themeHue = writable(settings.themeHue || defaultHue)
 themeHue.subscribe((value) => { settings.themeHue = value; persistSettings(); });
 
 

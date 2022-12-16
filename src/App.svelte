@@ -37,19 +37,20 @@
     // exportSettings,
     // importSettings,
     themeHue,
+    defaultHue,
   } from './lib/Preferences.js';
   import { writable } from 'svelte/store';
   import { bind, loop_guard, subscribe, toggle_class } from 'svelte/internal';
 
   import { compareVersions } from 'compare-versions';
   import Hotkey from './lib/Hotkey.svelte';
-  
+
   //import {
   //  mdiToggleSwitch, mdiToggleSwitchOffOutline
   //} from '@mdi/js'
   let tips = writable();
   let help_text;
-  
+
   let heartbeat = {};
   let heartbeatInterval;
 
@@ -246,7 +247,7 @@
     //
 
     setHue();
-    
+
     if ($obsAddress !== '') {
       await connect();
     }
@@ -285,11 +286,15 @@
       <div class="error-report">
         {@html $runtimeError}
         <button
-          class="btn-default btn-error"
-          on:click="{() => ($runtimeError = '')}">OK</button>
+          class="btn-default btn-tiny"
+          on:click="{() => ($runtimeError = '')}">
+          OK
+        </button>
       </div>
     {:else}
-      <div class="container" style="margin-top: 7px; background-color: transparent;">
+      <div
+        class="container"
+        style="margin-top: 7px; background-color: transparent;">
         <h1>OBS Studio Remote</h1>
       </div>
     {/if}
@@ -297,9 +302,10 @@
       class="btn-default"
       style="float:right; margin-right:8px; margin-top:5px; padding-top: 3px;"
       on:click="{() => (openMenu = !openMenu)}">
-      <img src="{openMenu 
-      ? 'menu-x-50.png' 
-      : 'menu-hamburger-24.png'}" alt="menu" width="24" /></button>
+      <img
+        src="{openMenu ? 'menu-x-50.png' : 'menu-hamburger-24.png'}"
+        alt="menu"
+        width="24" /></button>
     <hr />
 
     <div class:invisible="{!openMenu}">
@@ -355,10 +361,25 @@
       </div>
       <div class="container">
         <div class="subpanel-3row-flow">
-          <span>Color:<input type="range" min="0" max="360"
-            on:change="{() => setHue()}"
-            on:pointermove="{() => setHue()}"
-            bind:value="{$themeHue}" /></span>
+          <span
+            ><label  for="" style="vertical-align: top; padding-top:3px;">Color:</label><input class="hue-slider"
+              type="range"
+              min="0"
+              max="360"
+              on:change="{() => setHue()}"
+              on:pointermove="{() => setHue()}"
+              bind:value="{$themeHue}" />
+            {#if $themeHue != defaultHue}
+              <button
+                class="btn-default btn-tiny"
+                on:click="{() => {
+                  $themeHue = defaultHue;
+                  setHue();
+                }}">
+                Rst
+              </button>
+            {/if}
+          </span>
           {#if $obsConnected}
             <button class="btn-default" on:click="{() => disconnect()}">
               Disconnect OBS Studio
@@ -422,14 +443,16 @@
               <input
                 id="host"
                 bind:value="{$obsAddress}"
-                type="text" size="15"
+                type="text"
+                size="15"
                 autocomplete=""
                 placeholder="localhost:4455" />
               Password
               <input
                 id="password"
                 bind:value="{$obsPassword}"
-                type="password" size="10"
+                type="password"
+                size="10"
                 autocomplete="current-password"
                 placeholder="Empty if none" />
               <button class="btn-default">Connect</button>
@@ -449,14 +472,16 @@
               <input
                 id="avdHost"
                 bind:value="{$avdAddress}"
-                type="text" size="15"
+                type="text"
+                size="15"
                 autocomplete=""
                 placeholder="localhost:4443" />
-              Password 
+              Password
               <input
                 id="avdPassword"
                 bind:value="{$avdPassword}"
-                type="password" size="10"
+                type="password"
+                size="10"
                 autocomplete="current-avd-password"
                 placeholder="Empty if none" />
               <button class="btn-default">Connect</button>
