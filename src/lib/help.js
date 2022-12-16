@@ -11,7 +11,7 @@ export const help_data = [
 <h3>OBS Studio</h3>
 <ul>
 <li>Control Preview (Projector) and Program scenes independently</li>
-<li>Change source settings for currently displayed Preview and Program views</li>
+<li>Change source settings of currently displayed Preview and/or Program views</li>
 <li>Support for Studio Mode (preview and program scenes)</li>
 <li>Live view of preview &amp; program, updating 1 fps</li>
 <li>User defined hotkey configuration (both "named" and "keybord")</li>
@@ -38,18 +38,18 @@ export const help_data = [
 <p>If there was not a previous connection, or the connection attempt fails, the manual connect panel will be displayed. Connect by pressing the "Connect" button</p>
 <p><img src="connect.jpg" ></p>
 <p>The actual operation specifics can be configured as specified in "Configuration and Settings".</p>`},
-{ topic: `OBS Studio Operation`,
- text: `<h2>OBS Studio Operation</h2>
+{ topic: `OBS Studio Scene View`,
+ text: `<h2>OBS Studio Scene View</h2>
 <p>Scene View displays the selected scene next to a classic button for each scene that exists in OBS Studio. Pressing the button selects the scene for that view.</p>
 <p>When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.</p>
 <p><img src="sceneview.jpg" ></p>
-<p>When Show Sourcws is enabled, a button is enabled for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.</p>
+<p>When Show Sources is enabled, a button is presented for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.</p>
 <p><img src="sceneviewsources.jpg" ></p>`},
-{ topic: `VISCA Camera Operation`,
- text: `<h2>VISCA Camera Operation</h2>
+{ topic: `AvDeviceControl VISCA Camera View`,
+ text: `<h2>AvDeviceControl VISCA Camera View</h2>
 <p><img src="cameraview.jpg" ></p>`},
-{ topic: `MIDI Mixer Operation`,
- text: `<h2>MIDI Mixer Operation</h2>
+{ topic: `AvDeviceControl MIDI Mixer View`,
+ text: `<h2>AvDeviceControl MIDI Mixer View</h2>
 <p><img src="mixerview.jpg" ></p>`},
 { topic: `Configuration and Settings`,
  text: `<h2>Configuration and Settings</h2>
