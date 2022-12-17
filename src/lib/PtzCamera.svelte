@@ -17,10 +17,13 @@
   let imageWidth = imageUnits * 18;
   let imageHeight = imageUnits * 10;
 
+  let turboShots = 0;
+  let totalCycles = 0;
+
   $: $obsConnected;
 
   onMount(async () => {
-    screenshotInterval = setInterval(getScreenshot, 1000);
+    screenshotInterval = setInterval(getScreenshot, 125);
   });
 
   onDestroy(() => {
@@ -28,6 +31,15 @@
   });
 
   async function getScreenshot() {
+    ++totalCycles;
+    if (turboShots > 0) {
+      // turbo active. samle every intervaal
+      --turboShots;
+    }
+    else if ((totalCycles % 8) != 0) {
+      // Normal mode. Sample every eighth interval
+      return;
+    }
     if ($obsConnected) {
       if (camera && camera.name) {
         let data = await obsSendCommand('GetSourceScreenshot', {
@@ -59,6 +71,7 @@
       direction: direction,
       amount: velocity.value,
     });
+    turboShots = 3 * 8;
   }
 
   function Zoom(cameraname, direction) {
@@ -67,11 +80,13 @@
       direction: direction,
       amount: velocity.value,
     });
+    turboShots = 3 * 8;
   }
 
   function Preset(cameraname) {
     avdSendCommand('Preset', { cameraname: cameraname, preset: presets.value });
     presets.selectedIndex = -1;
+    turboShots = 6 * 8;
   }
 </script>
 
