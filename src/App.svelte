@@ -191,7 +191,7 @@
           '), please upgrade to the latest version for full compatibility.'
       );
     }
-    avDeviceList = await avdSendCommand('GetCameras');
+    avDeviceList = await avdSendCommand('GetAvDevices');
     $avdConnected = true;
     console.log('A/V Devices Connected');
   });
@@ -211,7 +211,7 @@
 
   // @ts-ignore
   avDevices.on('ConfigurationChanged', (changedata) => {
-    avdSendCommand('GetCameras')
+    avdSendCommand('GetAvDevices')
       .then(function (data) {
         avDeviceList = data;
       })
@@ -362,7 +362,10 @@
       <div class="container">
         <div class="subpanel-3row-flow">
           <span
-            ><label  for="" style="vertical-align: top; padding-top:3px;">Color:</label><input class="hue-slider"
+            ><label for="" style="vertical-align: top; padding-top:3px;"
+              >Color:</label
+            ><input
+              class="hue-slider"
               type="range"
               min="0"
               max="360"
@@ -499,11 +502,12 @@
     <ObsMain />
   {/if}
   {#if $avdConnected && avDeviceList}
-    {#each avDeviceList.cameras as camera}
-      <PtzCamera camera="{camera}" />
-    {/each}
-    {#each avDeviceList.mixers as mixer}
-      <AudioMixer mixer="{mixer}" />
+    {#each avDeviceList.devices as avDevice}
+      {#if avDevice.devicetype === 'viscacamera'}
+        <PtzCamera camera="{avDevice}" />
+      {:else if avDevice.devicetype === 'mixer'}
+        <AudioMixer mixer="{avDevice}" />
+      {/if}
     {/each}
   {/if}
 </main>
