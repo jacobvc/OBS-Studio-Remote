@@ -116,37 +116,37 @@
         placeholder="50" />
     </div>
     <div class="ptz-btns-group">
-      <button on:click="{() => Zoom(camera.name, 'in')}" class:ptz-btn="{true}">
+      <button class:ptz-btn="{true}"
+        on:mousedown="{() => Zoom(camera.name, 'in')}" 
+        on:mouseup="{() => Zoom(camera.name, 'stop')}">
         In
       </button>
-      <button
-        on:click="{() => Zoom(camera.name, 'out')}"
-        class:ptz-btn="{true}">
+      <button class:ptz-btn="{true}"
+      on:mousedown="{() => Zoom(camera.name, 'out')}" 
+      on:mouseup="{() => Zoom(camera.name, 'stop')}">
         Out
       </button>
     </div>
-    <button
-      on:click="{() => MovePtz(camera.name, 'left')}"
-      class:ptz-btn="{true}"
-      class:pan-btn-pos="{true}">
+    <button class:ptz-btn="{true}" class:pan-btn-pos="{true}"
+    on:mousedown="{() => MovePtz(camera.name, 'left')}" 
+    on:mouseup="{() => MovePtz(camera.name, 'stop')}">
       Left
     </button>
     <div class="ptz-btns-group">
-      <button
-        on:click="{() => MovePtz(camera.name, 'up')}"
-        class:ptz-btn="{true}">
-        Up
+      <button class:ptz-btn="{true}" 
+      on:mousedown="{() => MovePtz(camera.name, 'up')}" 
+      on:mouseup="{() => MovePtz(camera.name, 'stop')}">
+          Up
       </button>
-      <button
-        on:click="{() => MovePtz(camera.name, 'down')}"
-        class:ptz-btn="{true}">
-        Down
+      <button class:ptz-btn="{true}" 
+      on:mousedown="{() => MovePtz(camera.name, 'down')}" 
+      on:mouseup="{() => MovePtz(camera.name, 'stop')}">
+          Down
       </button>
     </div>
-    <button
-      on:click="{() => MovePtz(camera.name, 'right')}"
-      class:ptz-btn="{true}"
-      class:pan-btn-pos="{true}">
+    <button class:ptz-btn="{true}" class:pan-btn-pos="{true}"
+    on:mousedown="{() => MovePtz(camera.name, 'right')}" 
+    on:mouseup="{() => MovePtz(camera.name, 'stop')}">
       Rght
     </button>
     <div data-tap-disabled="true" style="display: inline-block; ">

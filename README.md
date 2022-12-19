@@ -184,8 +184,11 @@ A section (like THIS section) may be excluded from the help file by starting wit
 
 ### Install and build
 ```
-npm install
-
+  npm install
+or
+  npm ci
+```
+```
   npm run dev
 or
   npm run build
