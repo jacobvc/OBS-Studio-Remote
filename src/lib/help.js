@@ -14,7 +14,7 @@ export const help_data = [
 <li>Change source settings of currently displayed Preview and/or Program views</li>
 <li>Support for Studio Mode (preview and program scenes)</li>
 <li>Live view of preview &amp; program, updating 1 fps</li>
-<li>User defined hotkey configuration (both "named" and "keybord")</li>
+<li>User defined hotkey configuration (both "named" and "keybord") hotkeys</li>
 </ul>
 <h3>A/V Devices</h3>
 <ul>
@@ -72,18 +72,25 @@ displayed scene(s) and allow changing which source are active fr each scene.</li
   - OBS Studio IP:Port and password
   - AvDeviceControl IP:Port and password
   - Settngs Persist mode
-  - OBS Studio slot name 
+  - OBS Studio persisted data slot name 
   - Synchronization enable
 - Persisted Data:
   - Show Sources
   - Use A/V
-  - Hotkey Configuration (JSON object)</p>
+  - Hotkey Configuration (JSON object)
+  - Theme color</p>
 <p>The user interface allows choosing whether to persist settings in OBS Studio or the browser local data. </p>
 <p>When configured to persist settings in OBS Studio, a OBS Studio persisted data slot name must be provided, and synchronization may optionally be enabled.</p>
 <ul>
 <li>Persisted data is saved to OBS Studio, but local data is not.</li>
 <li>Persisted data is retrieved from the slot at OBS Studio connect time</li>
 <li>Persisted data may be saved or loaded manually, but changes are not automatically persisted unless Sync is enabled.</li>
+</ul>
+<p>The third section of the panel contains:</p>
+<p><img src="color-disconnect.jpg" ></p>
+<ul>
+<li>Color - Change the color theme. </li>
+<li>Disconnect - Disconnect any connected websocket server. Button only appears for connected servers.</li>
 </ul>`},
 { topic: `Hotkeys`,
  text: `<h2>Hotkeys</h2>

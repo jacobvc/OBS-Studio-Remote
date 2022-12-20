@@ -29,7 +29,7 @@ supports, for example, the ability to change the Program scene without impacting
 - Change source settings of currently displayed Preview and/or Program views
 - Support for Studio Mode (preview and program scenes)
 - Live view of preview & program, updating 1 fps
-- User defined hotkey configuration (both "named" and "keybord")
+- User defined hotkey configuration (both "named" and "keybord") hotkeys
 
 ### A/V Devices
 - Pan, Tilt, and Zoom support for VISCA cameras
@@ -102,12 +102,13 @@ All configuration and settings are stored in the browser local data. The two cat
   - OBS Studio IP:Port and password
   - AvDeviceControl IP:Port and password
   - Settngs Persist mode
-  - OBS Studio slot name 
+  - OBS Studio persisted data slot name 
   - Synchronization enable
 - Persisted Data:
   - Show Sources
   - Use A/V
   - Hotkey Configuration (JSON object)
+  - Theme color
 
 The user interface allows choosing whether to persist settings in OBS Studio or the browser local data. 
 
@@ -117,6 +118,12 @@ When configured to persist settings in OBS Studio, a OBS Studio persisted data s
 - Persisted data is retrieved from the slot at OBS Studio connect time
 - Persisted data may be saved or loaded manually, but changes are not automatically persisted unless Sync is enabled.
 
+The third section of the panel contains:
+
+<img src="public/color-disconnect.jpg" >
+
+- Color - Change the color theme. 
+- Disconnect - Disconnect any connected websocket server. Button only appears for connected servers.
 
 ## Hotkeys
 Hotkeys are presented as a horizontally aligned set of Hotkey group panels. 
