@@ -10,6 +10,8 @@ The primary use case anticipates a need to present a different scene on the
 local projector than the one being livecast via the program scene. It 
 supports, for example, the ability to change the Program scene without impacting the content of the preview scene.
 
+Much of the websocket interface code was derived from [Niek van der Maas' obs-web](https://github.com/Niek/obs-web)
+
 ### Live URL: [http://obs.spiritofpeacecommunity.org/](http://obs.spiritofpeacecommunity.org/)
 
 
