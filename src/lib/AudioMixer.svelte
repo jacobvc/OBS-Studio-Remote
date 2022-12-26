@@ -78,7 +78,7 @@
       Connect
     </button>
   </h2>
-  <div class="content-flex" class:disabledpanel="{!mixer.active}"      style="overflow:auto; resize:both"
+  <div class="content-flex" class:disabledpanel="{!mixer.active}"      style="overflow:auto; resize:vertical"
   >
     {#if mixer.channels}
       {(volumeMap = [])}
