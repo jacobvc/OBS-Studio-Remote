@@ -220,6 +220,10 @@ select {
 
 .container input[type=range] {
   background-color: transparent;
+  background-image: url('assets/11lines.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-y: 5px;
   color: var(--text-color);
 }
 
@@ -268,7 +272,7 @@ input.vertical {
 .container div progress {
   vertical-align: top;
   position: relative;
-  top: 8px;
+  top: 6px;
   left: 25px;
 }
 
@@ -412,10 +416,10 @@ progress {
   background-color: var(--control-background);
   color: var(--text-color);
   width: 55px;
-  height: 20px;
-  max-height: 20px;
+  height: 21px;
+  max-height: 21px;
   padding: 0px;
-  margin: 0px 0px;
+  margin: 0px;
   transform-origin: left bottom;
   transform: translateY(-100%) rotate(90deg);
   grid-row-start: 1;
@@ -598,6 +602,7 @@ input:checked+.slider:before {
   position: relative;
   width: 100%;
   padding: 1px;
+  border: 1px solid var(--border-color);
 }
 
 .audio-channel {
@@ -611,6 +616,7 @@ input:checked+.slider:before {
   border: 2px;
   border-radius: 8px;
   background-color: var(--control-background);
+  padding: 1px;
 }
 
 input.audio {
@@ -618,7 +624,7 @@ input.audio {
   width: calc(100% - 25px);
   appearance: none;
   transform-origin: top left;
-  top: 0px;
+  top: 3px;
   left: 25px;
   margin: 0px;
   grid-column: 1;
@@ -630,7 +636,10 @@ input.audio::-webkit-slider-runnable-track {
   background-color: black;
   height: 2px;
 }
-
+input.audio::-moz-range-track {
+  background-color: black;
+  height: 2px;
+}
 input.audio::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;

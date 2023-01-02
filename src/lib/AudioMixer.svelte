@@ -69,7 +69,7 @@
 
   function resizeComputed(container) {
     if (!container) return;
-    // The child of omnt3erest is the first class named: audio-rotated-container
+    // The child of interest is the first class named: audio-rotated-container
     let child = container.getElementsByClassName('audio-rotated-container')[0];
     child.style.width = container.clientHeight + 'px';
     if (
@@ -86,16 +86,15 @@
       // Set the child's (rotated) height style to the container's clientWidth
       child.style.Height = container.clientWidth - 30 + 'px';
     }
-    // Remember the size
+    // Remember the current size
     container.w = container.clientWidth;
     container.h = container.clientHeight;
 
     return '';
   }
-  let resizeContainer;
 </script>
 
-<div class="container resizable" bind:this="{resizeContainer}">
+<div class="container resizable">
   <ResizeObserver on:resize="{(e) => resizeComputed(e.detail)}" />
   <h2 class="content-heading">
     {mixer.name}
