@@ -1,5 +1,5 @@
 <script>
-  import ResizeObserver from "svelte-resize-observer";
+  import ResizeObserver from 'svelte-resize-observer';
   import { avDevices } from './Preferences.js';
   import { obsSendCommand, avdSendCommand } from './Preferences.js';
 
@@ -66,31 +66,38 @@
     let item = muteMap[channelKey(data.mixername, data.channelname)];
     if (item) indicate_mute(item, data.value);
   });
-  
-    function resizeComputed(event){
-      let target = event.detail;
-      let child = target.getElementsByClassName('content-flex')[0];
-      child.style.width = target.clientHeight + 'px';
-      if (target.w
-       && target.h && target.h !== target.clientHeight) { 
-        //child.style.width = (target.clientHeight - 30) + 'px';
-        child.style.Height =  (target.style.width);
-        //child.style.maxHeight = target.w + 'px';
-        //target.style.maxWidth = target.w + 'px';
-      }
-      else {
-        target.style.width = (child.clientHeight) + 'px';
-        child.style.Height = (target.clientWidth - 30) + 'px';
-        //console.log("resize " + child.style.maxHeight + "=" + target.offsetWidth + ", " + child.style.width + "=" + target.clientHeight)
-      }
-      target.w = target.clientWidth;
-      target.h = target.clientHeight;
+
+  function resizeComputed(container) {
+    if (!container) return;
+    // The child of omnt3erest is the first class named: audio-rotated-container
+    let child = container.getElementsByClassName('audio-rotated-container')[0];
+    child.style.width = container.clientHeight + 'px';
+    if (
+      (container.w && container.w !== container.clientWidth) ||
+      (container.h && container.h !== container.clientHeight)
+    ) {
+      // Container size changed
+      // Set the child's (rotated) height to the container's width style
+      child.style.Height = container.style.width;
+    } else {
+      // Child size changed
+      // Set the container's width style to the child's (rotated) height
+      container.style.width = child.clientHeight + 'px';
+      // Set the child's (rotated) height style to the container's clientWidth
+      child.style.Height = container.clientWidth - 30 + 'px';
     }
+    // Remember the size
+    container.w = container.clientWidth;
+    container.h = container.clientHeight;
+
+    return '';
+  }
+  let resizeContainer;
 </script>
 
-  <div class="container resizable">
-    <ResizeObserver on:resize={(e) => resizeComputed(e)} />
-      <h2 class="content-heading">
+<div class="container resizable" bind:this="{resizeContainer}">
+  <ResizeObserver on:resize="{(e) => resizeComputed(e.detail)}" />
+  <h2 class="content-heading">
     {mixer.name}
     <button
       class="btn-default btn-in-h2"
@@ -100,55 +107,57 @@
       Connect
     </button>
   </h2>
-    <div class="content-flex" style="width:fit_content; transform: translateX(-100%) translateY(-00%) rotate(-90deg); transform-origin: 100% 0%; ">
-    <div class="content-block" style="width: fit_content">
-    {#if mixer.channels}
-      {(volumeMap = [])}
-      {(muteMap = [])}
-      {(volumeSettingMap = [])}
-      {#each mixer.channels as channel}
-      <div class="audio-channel-wrap" >
-        <div class="audio-channel">
-          <input
-            class="audio-btn"
-            class:audio-btn-unmuted="{!channel.mute}"
-            bind:this="{muteMap[channelKey(mixer.name, channel.name)]}"
-            on:click="{() => switch_mute(mixer.name, channel.name)}"
-            type="submit"
-            name="{channel.name}"
-            value="{channel.name}" />
-          <input
-            type="range"
-            class="audio"
-            min="0"
-            max="127"
-            value="{channel.volumesetting}"
-            placeholder="0"
-            bind:this="{volumeSettingMap[channelKey(mixer.name, channel.name)]}"
-            on:input="{() => VolumeSetting(mixer.name, channel.name)}" />
-          <datalist>
-            <option value="0"></option>
-            <option value="13"></option>
-            <option value="26"></option>
-            <option value="39"></option>
-            <option value="52"></option>
-            <option value="65"></option>
-            <option value="78"></option>
-            <option value="91"></option>
-            <option value="104"></option>
-            <option value="117"></option>
-            <option value="127"></option>
-          </datalist>
-          <progress
-            value="19"
-            max="127"
-            class="audio"
-            bind:this="{volumeMap[channelKey(mixer.name, channel.name)]}"
-          ></progress>
-        </div>
-      </div>
+  <div class="content-flex audio-rotated-container">
+    <div class="content-block audio-container">
+      {#if mixer.channels}
+        {(volumeMap = [])}
+        {(muteMap = [])}
+        {(volumeSettingMap = [])}
+        {#each mixer.channels as channel}
+          <div class="audio-channel-wrap">
+            <div class="audio-channel">
+              <input
+                class="audio-btn"
+                class:audio-btn-unmuted="{!channel.mute}"
+                bind:this="{muteMap[channelKey(mixer.name, channel.name)]}"
+                on:click="{() => switch_mute(mixer.name, channel.name)}"
+                type="submit"
+                name="{channel.name}"
+                value="{channel.name}" />
+              <input
+                type="range"
+                class="audio"
+                min="0"
+                max="127"
+                value="{channel.volumesetting}"
+                placeholder="0"
+                bind:this="{volumeSettingMap[
+                  channelKey(mixer.name, channel.name)
+                ]}"
+                on:input="{() => VolumeSetting(mixer.name, channel.name)}" />
+              <datalist>
+                <option value="0"></option>
+                <option value="13"></option>
+                <option value="26"></option>
+                <option value="39"></option>
+                <option value="52"></option>
+                <option value="65"></option>
+                <option value="78"></option>
+                <option value="91"></option>
+                <option value="104"></option>
+                <option value="117"></option>
+                <option value="127"></option>
+              </datalist>
+              <progress
+                value="19"
+                max="127"
+                class="audio"
+                bind:this="{volumeMap[channelKey(mixer.name, channel.name)]}"
+              ></progress>
+            </div>
+          </div>
         {/each}
-    {/if}
+      {/if}
+    </div>
   </div>
-</div>
 </div>

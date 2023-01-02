@@ -1,7 +1,8 @@
 @charset "utf-8";
 
 /* made this with a script and pasted it into the stylesheet */
-$hueGrad: -webkit-linear-gradient(left, hsla(0, 50%, 50%, 1),hsla(10, 50%, 50%, 1),hsla(20, 50%, 50%, 1),hsla(30, 50%, 50%, 1),hsla(40, 50%, 50%, 1),hsla(50, 50%, 50%, 1),hsla(60, 50%, 50%, 1),hsla(70, 50%, 50%, 1),hsla(80, 50%, 50%, 1),hsla(90, 50%, 50%, 1),hsla(100, 50%, 50%, 1),hsla(110, 50%, 50%, 1),hsla(120, 50%, 50%, 1),hsla(130, 50%, 50%, 1),hsla(140, 50%, 50%, 1),hsla(150, 50%, 50%, 1),hsla(160, 50%, 50%, 1),hsla(170, 50%, 50%, 1),hsla(180, 50%, 50%, 1),hsla(190, 50%, 50%, 1),hsla(200, 50%, 50%, 1),hsla(210, 50%, 50%, 1),hsla(220, 50%, 50%, 1),hsla(230, 50%, 50%, 1),hsla(240, 50%, 50%, 1),hsla(250, 50%, 50%, 1),hsla(260, 50%, 50%, 1),hsla(270, 50%, 50%, 1),hsla(280, 50%, 50%, 1),hsla(290, 50%, 50%, 1),hsla(300, 50%, 50%, 1),hsla(310, 50%, 50%, 1),hsla(320, 50%, 50%, 1),hsla(330, 50%, 50%, 1),hsla(340, 50%, 50%, 1),hsla(350, 50%, 50%, 1),hsla(360, 50%, 50%, 1));
+$hueGrad: -webkit-linear-gradient(left, hsla(0, 50%, 50%, 1), hsla(10, 50%, 50%, 1), hsla(20, 50%, 50%, 1), hsla(30, 50%, 50%, 1), hsla(40, 50%, 50%, 1), hsla(50, 50%, 50%, 1), hsla(60, 50%, 50%, 1), hsla(70, 50%, 50%, 1), hsla(80, 50%, 50%, 1), hsla(90, 50%, 50%, 1), hsla(100, 50%, 50%, 1), hsla(110, 50%, 50%, 1), hsla(120, 50%, 50%, 1), hsla(130, 50%, 50%, 1), hsla(140, 50%, 50%, 1), hsla(150, 50%, 50%, 1), hsla(160, 50%, 50%, 1), hsla(170, 50%, 50%, 1), hsla(180, 50%, 50%, 1), hsla(190, 50%, 50%, 1), hsla(200, 50%, 50%, 1), hsla(210, 50%, 50%, 1), hsla(220, 50%, 50%, 1), hsla(230, 50%, 50%, 1), hsla(240, 50%, 50%, 1), hsla(250, 50%, 50%, 1), hsla(260, 50%, 50%, 1), hsla(270, 50%, 50%, 1), hsla(280, 50%, 50%, 1), hsla(290, 50%, 50%, 1), hsla(300, 50%, 50%, 1), hsla(310, 50%, 50%, 1), hsla(320, 50%, 50%, 1), hsla(330, 50%, 50%, 1), hsla(340, 50%, 50%, 1), hsla(350, 50%, 50%, 1), hsla(360, 50%, 50%, 1));
+
 :root {
   /* default value: not really used. ALWAYS set from OnMount */
   --theme-color-h: 240;
@@ -87,14 +88,11 @@ h6 {
  */
 .container {
   height: auto;
-  /* min-width: 200px; */
   max-width: 100%;
-  margin: 1px;
   background-color: var(--container-background);
   color: var(--text-color);
   display: inline-block;
   border: 2px solid var(--border-color);
-  padding: 1px;
   border-radius: 10px;
   vertical-align: top;
 }
@@ -132,9 +130,6 @@ h6 {
 
 .content-block {
   border-radius: 0px;
-  //width: fit-content;
-  //display: inline-block;
-  //vertical-align: top;
   height: auto;
   padding: 2px;
 }
@@ -153,18 +148,16 @@ h6 {
 
 .resizable {
   resize: vertical;
-  overflow-y: hidden ;
-  overflow-x:hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
   height: 159px;
   border: 1px solid black;
-  //padding: 20px;
-  //margin-bottom: 120px;
 }
+
 .content-heading {
   position: relative;
   height: 28px;
   width: 100%;
-  //display: flex;
   justify-content: space-between;
   background-color: var(--heading-background);
   border-radius: 9px 9px 0px 0px;
@@ -226,7 +219,6 @@ select {
 }
 
 .container input[type=range] {
-  //left: auto;
   background-color: transparent;
   color: var(--text-color);
 }
@@ -239,7 +231,6 @@ input.vertical {
   position: relative;
 }
 
-// .hue-slider 
 .hue-slider {
   -webkit-appearance: none;
   margin-top: 6px;
@@ -293,7 +284,6 @@ progress.vertical {
   padding: 0px;
   transform-origin: top left;
   transform: translateX(20px) translateY(-13px) rotate(90deg);
-  //display: inline-block;
   -webkit-appearance: none;
   appearance: none;
 }
@@ -382,7 +372,6 @@ progress {
 .btn-in-h2 {
   line-height: 6px;
   height: 23px;
-  //float: right; 
   margin-right: 8px
 }
 
@@ -425,7 +414,6 @@ progress {
   width: 55px;
   height: 20px;
   max-height: 20px;
-  //background-size: 55px 20px;
   padding: 0px;
   margin: 0px 0px;
   transform-origin: left bottom;
@@ -592,10 +580,20 @@ input:checked+.slider:before {
  *                                     
  */
 
+.audio-rotated-container {
+  width: fit_content;
+  transform: translateX(-100%) translateY(-00%) rotate(-90deg);
+  transform-origin: 100% 0%;
+}
+
+.audio-container {
+  position: relative;
+  width: 100%;
+}
+
 .audio-channel-wrap {
   max-height: 55px;
   min-width: 110px;
-//  height: calc(100% - 28px);
   top: 0;
   position: relative;
   width: 100%;
@@ -609,8 +607,6 @@ input:checked+.slider:before {
   grid-template-rows: 28px 28px;
   margin-right: 2px;
   min-width: 10px;
-  //height: calc(100% - 20px);
-  right: -10px;
   width: 100%;
   border: 2px;
   border-radius: 8px;
@@ -625,7 +621,6 @@ input.audio {
   top: 0px;
   left: 25px;
   margin: 0px;
-  //border: 2px solid;
   grid-column: 1;
   grid-row: 1;
 
@@ -654,4 +649,3 @@ input.audio::-moz-range-thumb {
   background: url('assets/slider_knob.png');
   cursor: pointer;
 }
-
