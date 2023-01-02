@@ -3,7 +3,8 @@
 /* made this with a script and pasted it into the stylesheet */
 $hueGrad: -webkit-linear-gradient(left, hsla(0, 50%, 50%, 1),hsla(10, 50%, 50%, 1),hsla(20, 50%, 50%, 1),hsla(30, 50%, 50%, 1),hsla(40, 50%, 50%, 1),hsla(50, 50%, 50%, 1),hsla(60, 50%, 50%, 1),hsla(70, 50%, 50%, 1),hsla(80, 50%, 50%, 1),hsla(90, 50%, 50%, 1),hsla(100, 50%, 50%, 1),hsla(110, 50%, 50%, 1),hsla(120, 50%, 50%, 1),hsla(130, 50%, 50%, 1),hsla(140, 50%, 50%, 1),hsla(150, 50%, 50%, 1),hsla(160, 50%, 50%, 1),hsla(170, 50%, 50%, 1),hsla(180, 50%, 50%, 1),hsla(190, 50%, 50%, 1),hsla(200, 50%, 50%, 1),hsla(210, 50%, 50%, 1),hsla(220, 50%, 50%, 1),hsla(230, 50%, 50%, 1),hsla(240, 50%, 50%, 1),hsla(250, 50%, 50%, 1),hsla(260, 50%, 50%, 1),hsla(270, 50%, 50%, 1),hsla(280, 50%, 50%, 1),hsla(290, 50%, 50%, 1),hsla(300, 50%, 50%, 1),hsla(310, 50%, 50%, 1),hsla(320, 50%, 50%, 1),hsla(330, 50%, 50%, 1),hsla(340, 50%, 50%, 1),hsla(350, 50%, 50%, 1),hsla(360, 50%, 50%, 1));
 :root {
-  --theme-color-h: 240; /* default value: not really used. ALWAYS set from OnMount */
+  /* default value: not really used. ALWAYS set from OnMount */
+  --theme-color-h: 240;
   --theme-color-s: 50%;
   --theme-color-l: 50%;
   --theme-color-hs: var(--theme-color-h), var(--theme-color-s);
@@ -85,8 +86,7 @@ h6 {
  * a container class, and is composed of a content-heading and a content-block
  */
 .container {
-  height: auto;
-  min-width: 200px;
+  /* min-width: 200px; */
   max-width: 100%;
   margin: 1px;
   background-color: var(--container-background);
@@ -96,70 +96,78 @@ h6 {
   padding: 1px;
   border-radius: 10px;
   vertical-align: top;
+}
 
-  .content-flex {
-    display: flex;
-    margin-top: 1px;
-    margin-bottom: 1px;
-    padding: 2px;
-  }
+.content-flex {
+  display: flex;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding: 2px;
+}
 
-  .subpanel-3row-flow {
-    border-radius: 0px;
-    vertical-align: top;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto);
-    grid-template-rows: repeat(3, auto);
-    grid-gap: 1px;
-  }
-  .subpanel-2row-flow {
-    border-radius: 0px;
-    vertical-align: top;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto);
-    grid-template-rows: repeat(2, auto);
-    grid-gap: 1px;
-  }
+.subpanel-3row-flow {
+  border-radius: 0px;
+  vertical-align: top;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto);
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 1px;
+}
 
-  .subpanel-source-btns {
-    grid-template-rows: auto;
-  }
+.subpanel-2row-flow {
+  border-radius: 0px;
+  vertical-align: top;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto);
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 1px;
+}
 
-  .content-block {
-    border-radius: 0px;
-    width: fit-content;
-    display: inline-block;
-    vertical-align: top;
-    height: auto;
-    padding: 2px;
-  }
+.subpanel-source-btns {
+  grid-template-rows: auto;
+}
 
-  .content-heading-vertical {
-    text-orientation: mixed;
-    margin-left: 1px;
-    border-radius: 0px 9px 9px 0px;
-    background-color: var(--heading-background);
-    writing-mode: tb-rl;
-    text-align: center;
-    width: 28px;
+.content-block {
+  border-radius: 0px;
+  width: fit-content;
+  display: inline-block;
+  vertical-align: top;
+  height: auto;
+  padding: 2px;
+}
 
-    transform: rotate(180deg)
-  }
+.content-heading-vertical {
+  text-orientation: mixed;
+  margin-left: 1px;
+  border-radius: 0px 9px 9px 0px;
+  background-color: var(--heading-background);
+  writing-mode: tb-rl;
+  text-align: center;
+  width: 28px;
 
+  transform: rotate(180deg)
+}
 
-  .content-heading {
-    position: relative;
-    height: 28px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--heading-background);
-    border-radius: 9px 9px 0px 0px;
-    text-indent: 12px;
-  }
-
+.resizable {
+  resize: vertical;
+  overflow-y: hidden ;
+  overflow-x:hidden;
+  height: 159px;
+  border: 1px solid black;
+  //padding: 20px;
+  //margin-bottom: 120px;
+}
+.content-heading {
+  position: relative;
+  height: 28px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--heading-background);
+  border-radius: 9px 9px 0px 0px;
+  text-indent: 12px;
 }
 
 .error-report {
@@ -275,21 +283,47 @@ input.vertical {
  */
 
 .audio-channel {
-  display: inline-block;
+  /* display: grid; */
+  display: inline-grid;
+}
+
+
+.audio-channel-wrap {
+  max-height: 55px;
+  min-width: 110px;
+  height: 100%;
+  top: 0;
+  position: relative;
+  width: 100%;
+  padding: 1px;
+}
+
+.audio-channel {
+  display: grid;
+  grid-template-columns: auto 20px;
+  grid-template-rows: 28px 28px;
   position: relative;
   margin-right: 2px;
-  max-width: 55px;
   min-width: 10px;
-  height: 128px;
-  max-height: 128px;
+  height: 100%;
+  width: 100%;
   border: 2px;
   border-radius: 8px;
   background-color: var(--control-background);
 }
 
 input.audio {
+  position: relative;
+  width: calc(100% - 5px);
   appearance: none;
-  transform: translateX(-35px) translateY(33px) rotate(-90deg);
+  transform-origin: top left;
+  top: 0px;
+  left: 25px;
+  margin: 0px;
+  //border: 2px solid;
+  grid-column: 1;
+  grid-row: 1;
+
 }
 
 input.audio::-webkit-slider-runnable-track {
@@ -322,7 +356,6 @@ input.audio::-moz-range-thumb {
 }
 
 progress.vertical {
-  left: -10px;
   width: 96px;
   height: 4px;
   /*border: 1px solid #060707;*/
@@ -332,10 +365,18 @@ progress.vertical {
   box-shadow: 0 0 3px #c3e7a5 inset, 0 0 2px rgba(228, 103, 103, 0.9);
   border-radius: 0px;
   padding: 0px;
-  transform: rotate(-90deg);
-  display: inline-block;
+  transform-origin: top left;
+  transform: translateX(20px) translateY(-13px) rotate(90deg);
+  //display: inline-block;
   -webkit-appearance: none;
   appearance: none;
+}
+
+progress.audio {
+  width: calc(100% - 5px);
+  height: 4px;
+  grid-column: 1;
+  grid-row: 2;
 }
 
 /* value: */
@@ -450,12 +491,23 @@ progress {
 }
 
 .audio-btn {
+  display: inline-grid;
+  position: relative;
   border-color: var(--border-color);
   background-color: var(--control-background);
   color: var(--text-color);
-  width: 100%;
-  //height: 20px;
-  background-size: 55px 20px;
+  width: 55px;
+  height: 20px;
+  max-height: 20px;
+  //background-size: 55px 20px;
+  padding: 0px;
+  margin: 0px 0px;
+  transform-origin: left bottom;
+  transform: translateY(-100%) rotate(90deg);
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column: 2;
+
 }
 
 .audio-btn-unmuted {

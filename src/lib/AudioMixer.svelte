@@ -1,4 +1,5 @@
 <script>
+  import ResizeObserver from "svelte-resize-observer";
   import { avDevices } from './Preferences.js';
   import { obsSendCommand, avdSendCommand } from './Preferences.js';
 
@@ -65,10 +66,27 @@
     let item = muteMap[channelKey(data.mixername, data.channelname)];
     if (item) indicate_mute(item, data.value);
   });
+  
+    function resizeComputed(event){
+      let target = event.detail;
+      if (target.w && target.h && target.h !== target.clientHeight) { 
+        let child = target.getElementsByClassName('content-flex')[0];
+        child.style.width = (target.clientHeight - 30) + 'px';
+        child.style.Height = target.w + 'px';
+        child.style.maxHeight = target.w + 'px';
+        target.style.maxWidth = target.w + 'px';
+        console.log("resize " + child.style.maxHeight + "=" + target.offsetWidth + ", " + child.style.width + "=" + target.clientHeight)
+      }
+      if (!target.w) {
+        target.w = target.clientWidth;
+      }
+      target.h = target.clientHeight;
+    }
 </script>
 
-<div class="container">
-  <h2 class="content-heading">
+  <div class="container resizable">
+    <ResizeObserver on:resize={(e) => resizeComputed(e)} />
+      <h2 class="content-heading">
     {mixer.name}
     <button
       class="btn-default btn-in-h2"
@@ -78,26 +96,26 @@
       Connect
     </button>
   </h2>
-  <div class="content-flex" class:disabledpanel="{!mixer.active}"      style="overflow:auto; resize:vertical"
-  >
+    <div class="content-flex" style="width:100%; transform: translateX(-100%) translateY(-00%) rotate(-90deg); transform-origin: 100% 0%; ">
+    <div class="content-block" style="width:100%">
     {#if mixer.channels}
       {(volumeMap = [])}
       {(muteMap = [])}
       {(volumeSettingMap = [])}
       {#each mixer.channels as channel}
+      <div class="audio-channel-wrap" >
         <div class="audio-channel">
           <input
             class="audio-btn"
             class:audio-btn-unmuted="{!channel.mute}"
-            style="margin: 0px 0px;"
             bind:this="{muteMap[channelKey(mixer.name, channel.name)]}"
             on:click="{() => switch_mute(mixer.name, channel.name)}"
             type="submit"
             name="{channel.name}"
-            value="{channel.name}" /><br />
+            value="{channel.name}" />
           <input
             type="range"
-            class="vertical audio"
+            class="audio"
             min="0"
             max="127"
             value="{channel.volumesetting}"
@@ -120,11 +138,13 @@
           <progress
             value="19"
             max="127"
-            class="vertical"
+            class="audio"
             bind:this="{volumeMap[channelKey(mixer.name, channel.name)]}"
           ></progress>
         </div>
-      {/each}
+      </div>
+        {/each}
     {/if}
   </div>
+</div>
 </div>

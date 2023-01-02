@@ -18,6 +18,7 @@
     "@mdi/js": "^7.0.96",
     "compare-versions": "^5.0.1",
     "mdi-svelte": "^1.1.2",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "svelte-resize-observer": "^2.0.0"
   }
 }
