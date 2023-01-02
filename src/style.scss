@@ -86,6 +86,7 @@ h6 {
  * a container class, and is composed of a content-heading and a content-block
  */
 .container {
+  height: auto;
   /* min-width: 200px; */
   max-width: 100%;
   margin: 1px;
@@ -147,7 +148,7 @@ h6 {
   text-align: center;
   width: 28px;
 
-  transform: rotate(180deg)
+  transform: rotate(180deg);
 }
 
 .resizable {
@@ -225,7 +226,7 @@ select {
 }
 
 .container input[type=range] {
-  left: auto !important;
+  //left: auto;
   background-color: transparent;
   color: var(--text-color);
 }
@@ -273,86 +274,11 @@ input.vertical {
   cursor: pointer;
 }
 
-/***
- *         _               _  _        
- *        / \   _   _   __| |(_)  ___  
- *       / _ \ | | | | / _` || | / _ \ 
- *      / ___ \| |_| || (_| || || (_) |
- *     /_/   \_\\__,_| \__,_||_| \___/ 
- *                                     
- */
-
-.audio-channel {
-  /* display: grid; */
-  display: inline-grid;
-}
-
-
-.audio-channel-wrap {
-  max-height: 55px;
-  min-width: 110px;
-  height: 100%;
-  top: 0;
-  position: relative;
-  width: 100%;
-  padding: 1px;
-}
-
-.audio-channel {
-  display: grid;
-  grid-template-columns: auto 20px;
-  grid-template-rows: 28px 28px;
-  position: relative;
-  margin-right: 2px;
-  min-width: 10px;
-  height: 100%;
-  width: 100%;
-  border: 2px;
-  border-radius: 8px;
-  background-color: var(--control-background);
-}
-
-input.audio {
-  position: relative;
-  width: calc(100% - 5px);
-  appearance: none;
-  transform-origin: top left;
-  top: 0px;
-  left: 25px;
-  margin: 0px;
-  //border: 2px solid;
-  grid-column: 1;
-  grid-row: 1;
-
-}
-
-input.audio::-webkit-slider-runnable-track {
-  background-color: black;
-  height: 2px;
-}
-
-input.audio::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  margin-top: -7px;
-  width: 24px;
-  height: 16px;
-  border: 0;
-  background: url('assets/slider_knob.png');
-  cursor: pointer;
-}
-
-input.audio::-moz-range-thumb {
-  width: 24px;
-  height: 16px;
-  border: 0;
-  background: url('assets/slider_knob.png');
-  cursor: pointer;
-}
-
 .container div progress {
   vertical-align: top;
+  position: relative;
   top: 8px;
+  left: 25px;
 }
 
 progress.vertical {
@@ -373,7 +299,7 @@ progress.vertical {
 }
 
 progress.audio {
-  width: calc(100% - 5px);
+  width: calc(100% - 25px);
   height: 4px;
   grid-column: 1;
   grid-row: 2;
@@ -656,3 +582,75 @@ input:checked+.slider:before {
   border-radius: 50%;
   border: 1px solid black;
 }
+
+/***
+ *         _               _  _        
+ *        / \   _   _   __| |(_)  ___  
+ *       / _ \ | | | | / _` || | / _ \ 
+ *      / ___ \| |_| || (_| || || (_) |
+ *     /_/   \_\\__,_| \__,_||_| \___/ 
+ *                                     
+ */
+
+ .audio-channel-wrap {
+  max-height: 55px;
+  min-width: 110px;
+  height: 100%;
+  top: 0;
+  position: relative;
+  width: 100%;
+  padding: 1px;
+}
+
+.audio-channel {
+  display: grid;
+  grid-template-columns: auto 20px;
+  grid-template-rows: 28px 28px;
+  position: relative;
+  margin-right: 2px;
+  min-width: 10px;
+  height: 100%;
+  width: 100%;
+  border: 2px;
+  border-radius: 8px;
+  background-color: var(--control-background);
+}
+
+input.audio {
+  position: relative;
+  width: calc(100% - 25px);
+  appearance: none;
+  transform-origin: top left;
+  top: 0px;
+  left: 25px;
+  margin: 0px;
+  //border: 2px solid;
+  grid-column: 1;
+  grid-row: 1;
+
+}
+
+input.audio::-webkit-slider-runnable-track {
+  background-color: black;
+  height: 2px;
+}
+
+input.audio::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  width: 24px;
+  height: 16px;
+  border: 0;
+  background: url('assets/slider_knob.png');
+  cursor: pointer;
+}
+
+input.audio::-moz-range-thumb {
+  width: 24px;
+  height: 16px;
+  border: 0;
+  background: url('assets/slider_knob.png');
+  cursor: pointer;
+}
+

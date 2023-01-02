@@ -69,17 +69,24 @@
   
     function resizeComputed(event){
       let target = event.detail;
-      if (target.w && target.h && target.h !== target.clientHeight) { 
-        let child = target.getElementsByClassName('content-flex')[0];
-        child.style.width = (target.clientHeight - 30) + 'px';
-        child.style.Height = target.w + 'px';
-        child.style.maxHeight = target.w + 'px';
-        target.style.maxWidth = target.w + 'px';
-        console.log("resize " + child.style.maxHeight + "=" + target.offsetWidth + ", " + child.style.width + "=" + target.clientHeight)
+      let child = target.getElementsByClassName('content-flex')[0];
+      child.style.width = target.clientHeight + 'px';
+      if (target.q && target.w
+       && target.h && target.h !== target.clientHeight) { 
+        //child.style.width = (target.clientHeight - 30) + 'px';
+        child.style.Height =  (target.style.width);
+        //child.style.maxHeight = target.w + 'px';
+        //target.style.maxWidth = target.w + 'px';
       }
-      if (!target.w) {
+      else {
+        target.style.width = (child.clientHeight) + 'px';
+        //child.style.Height = (target.clientWidth + 30) + 'px';
+        //console.log("resize " + child.style.maxHeight + "=" + target.offsetWidth + ", " + child.style.width + "=" + target.clientHeight)
+      }
+      //if (!target.q) {
+        target.q = child.children.length;
         target.w = target.clientWidth;
-      }
+      //}
       target.h = target.clientHeight;
     }
 </script>
@@ -96,8 +103,8 @@
       Connect
     </button>
   </h2>
-    <div class="content-flex" style="width:100%; transform: translateX(-100%) translateY(-00%) rotate(-90deg); transform-origin: 100% 0%; ">
-    <div class="content-block" style="width:100%">
+    <div class="content-flex" style="width:fit_content; transform: translateX(-100%) translateY(-00%) rotate(-90deg); transform-origin: 100% 0%; ">
+    <div class="content-block" style="width: fit_content">
     {#if mixer.channels}
       {(volumeMap = [])}
       {(muteMap = [])}
