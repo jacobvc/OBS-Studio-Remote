@@ -71,7 +71,7 @@
       let target = event.detail;
       let child = target.getElementsByClassName('content-flex')[0];
       child.style.width = target.clientHeight + 'px';
-      if (target.q && target.w
+      if (target.w
        && target.h && target.h !== target.clientHeight) { 
         //child.style.width = (target.clientHeight - 30) + 'px';
         child.style.Height =  (target.style.width);
@@ -80,13 +80,10 @@
       }
       else {
         target.style.width = (child.clientHeight) + 'px';
-        //child.style.Height = (target.clientWidth + 30) + 'px';
+        child.style.Height = (target.clientWidth - 30) + 'px';
         //console.log("resize " + child.style.maxHeight + "=" + target.offsetWidth + ", " + child.style.width + "=" + target.clientHeight)
       }
-      //if (!target.q) {
-        target.q = child.children.length;
-        target.w = target.clientWidth;
-      //}
+      target.w = target.clientWidth;
       target.h = target.clientHeight;
     }
 </script>

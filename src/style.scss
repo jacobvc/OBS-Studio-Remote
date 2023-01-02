@@ -132,9 +132,9 @@ h6 {
 
 .content-block {
   border-radius: 0px;
-  width: fit-content;
-  display: inline-block;
-  vertical-align: top;
+  //width: fit-content;
+  //display: inline-block;
+  //vertical-align: top;
   height: auto;
   padding: 2px;
 }
@@ -164,7 +164,7 @@ h6 {
   position: relative;
   height: 28px;
   width: 100%;
-  display: flex;
+  //display: flex;
   justify-content: space-between;
   background-color: var(--heading-background);
   border-radius: 9px 9px 0px 0px;
@@ -592,10 +592,10 @@ input:checked+.slider:before {
  *                                     
  */
 
- .audio-channel-wrap {
+.audio-channel-wrap {
   max-height: 55px;
   min-width: 110px;
-  height: 100%;
+//  height: calc(100% - 28px);
   top: 0;
   position: relative;
   width: 100%;
@@ -604,12 +604,13 @@ input:checked+.slider:before {
 
 .audio-channel {
   display: grid;
-  grid-template-columns: auto 20px;
-  grid-template-rows: 28px 28px;
   position: relative;
+  grid-template-columns: calc(100% - 20px) 20px;
+  grid-template-rows: 28px 28px;
   margin-right: 2px;
   min-width: 10px;
-  height: 100%;
+  //height: calc(100% - 20px);
+  right: -10px;
   width: 100%;
   border: 2px;
   border-radius: 8px;
