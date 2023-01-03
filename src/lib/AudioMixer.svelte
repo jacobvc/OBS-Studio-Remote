@@ -160,3 +160,172 @@
     </div>
   </div>
 </div>
+
+<style>
+/* **** Progress **** */
+.container div progress {
+  vertical-align: top;
+  position: relative;
+  top: 6px;
+  left: 25px;
+}
+
+progress.vertical {
+  width: 96px;
+  height: 4px;
+  /*border: 1px solid #060707;*/
+  position: relative;
+  margin: 10px auto;
+  background-color: var(--control-background);
+  box-shadow: 0 0 3px #c3e7a5 inset, 0 0 2px rgba(228, 103, 103, 0.9);
+  border-radius: 0px;
+  padding: 0px;
+  transform-origin: top left;
+  transform: translateX(20px) translateY(-13px) rotate(90deg);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+progress.audio {
+  width: calc(100% - 25px);
+  height: 4px;
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* value: */
+progress::-webkit-progress-value {
+  background-color: rgb(37, 228, 53) !important;
+}
+
+progress::-moz-progress-bar {
+  background-color: rgb(37, 228, 53) !important;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: rgb(37, 228, 53);
+}
+
+/* background: */
+progress::-webkit-progress-bar {
+  background-color: black;
+  width: 100%;
+}
+
+progress {
+  background-color: var(--body-background);
+}
+
+/* **** AUDIO Container **** */
+.audio-rotated-container {
+  width: fit_content;
+  transform: translateX(-100%) translateY(-00%) rotate(-90deg);
+  transform-origin: 100% 0%;
+}
+
+.audio-container {
+  position: relative;
+  width: 100%;
+}
+
+.audio-channel-wrap {
+  max-height: 55px;
+  min-width: 110px;
+  top: 0;
+  position: relative;
+  width: 100%;
+  padding: 1px;
+  border: 1px solid var(--border-color);
+}
+
+.audio-channel {
+  display: grid;
+  position: relative;
+  grid-template-columns: calc(100% - 20px) 20px;
+  grid-template-rows: 28px 28px;
+  margin-right: 2px;
+  min-width: 10px;
+  width: 100%;
+  border: 2px;
+  border-radius: 8px;
+  background-color: var(--control-background);
+  padding: 1px;
+}
+
+/* **** audio Range input **** */
+.container input[type=range] {
+  background-color: transparent;
+  background-image: url('../assets/11lines.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-y: 2px;
+  color: var(--text-color);
+}
+
+input.audio {
+  position: relative;
+  width: calc(100% - 25px);
+  appearance: none;
+  transform-origin: top left;
+  top: 3px;
+  left: 25px;
+  margin: 0px;
+  grid-column: 1;
+  grid-row: 1;
+
+}
+
+input.audio::-webkit-slider-runnable-track {
+  background-color: black;
+  height: 2px;
+}
+input.audio::-moz-range-track {
+  background-color: black;
+  height: 2px;
+}
+input.audio::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  width: 24px;
+  height: 16px;
+  border: 0;
+  background: url('../assets/slider_knob.png');
+  cursor: pointer;
+}
+
+input.audio::-moz-range-thumb {
+  width: 24px;
+  height: 16px;
+  border: 0;
+  background: url('../assets/slider_knob.png');
+  cursor: pointer;
+}
+
+/* **** Audio Mute Button **** */
+.audio-btn {
+  display: inline-grid;
+  position: relative;
+  border-color: var(--border-color);
+  background-color: var(--control-background);
+  color: var(--text-color);
+  width: 55px;
+  height: 21px;
+  max-height: 21px;
+  padding: 0px;
+  margin: 0px;
+  transform-origin: left bottom;
+  transform: translateY(-100%) rotate(90deg);
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column: 2;
+
+}
+
+.audio-btn-unmuted {
+  box-shadow: 0px 0px 10px lime;
+  background-color: lime;
+  color: black;
+}
+
+</style>

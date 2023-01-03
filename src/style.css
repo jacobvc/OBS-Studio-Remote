@@ -1,0 +1,304 @@
+@charset "utf-8";
+
+:root {
+  /* default value: not really used. ALWAYS set from OnMount */
+  --theme-color-h: 240;
+  --theme-color-s: 50%;
+  --theme-color-l: 50%;
+  --theme-color-hs: var(--theme-color-h), var(--theme-color-s);
+  --theme-color-hsl: var(--theme-color-hs), var(--theme-color-l);
+
+  --text-color: white;
+
+  --body-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.6));
+  --nav-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.2));
+  --container-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .8));
+  --heading-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * .5));
+  --control-background: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1));
+
+  --border-color: hsl(var(--theme-color-hs), calc(var(--theme-color-l) * 1.5));
+  --selected-border-color: var(--text-color);
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: rotating 10s linear infinite;
+}
+
+.icon-img {
+  max-width: 36px;
+  max-height: 36px;
+  padding: 4px;
+}
+
+.nav {
+  background-color: var(--nav-background) !important;
+  height: fit-content !important;
+}
+
+/* ****************************************** */
+
+body {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  background-color: var(--body-background);
+  margin: 0;
+  padding: 0;
+}
+
+html,       body,   dl,       dt,     dd,
+blockquote, figure, fieldset, legend, textarea,
+pre,        iframe, hr,       h1,     h2,
+h3,         h4,     h5,       h6 {
+  margin: 0;
+  padding: 0;
+}
+
+/** A device control is constructed within a
+ * a container class, and is composed of a content-heading and a content-block
+ */
+.container {
+  height: auto;
+  max-width: 100%;
+  background-color: var(--container-background);
+  color: var(--text-color);
+  display: inline-block;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  vertical-align: top;
+}
+
+.content-flex {
+  display: flex;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding: 2px;
+}
+
+.subpanel-3row-flow {
+  border-radius: 0px;
+  vertical-align: top;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto);
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 1px;
+}
+
+.subpanel-2row-flow {
+  border-radius: 0px;
+  vertical-align: top;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto);
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 1px;
+}
+
+.subpanel-source-btns {
+  grid-template-rows: auto;
+}
+
+.content-block {
+  border-radius: 0px;
+  height: auto;
+  padding: 2px;
+}
+
+.content-heading-vertical {
+  text-orientation: mixed;
+  margin-left: 1px;
+  border-radius: 0px 9px 9px 0px;
+  background-color: var(--heading-background);
+  writing-mode: tb-rl;
+  text-align: center;
+  width: 28px;
+
+  transform: rotate(180deg);
+}
+
+.resizable {
+  resize: vertical;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 159px;
+  border: 1px solid black;
+}
+
+.content-heading {
+  position: relative;
+  height: 28px;
+  width: 100%;
+  justify-content: space-between;
+  background-color: var(--heading-background);
+  border-radius: 9px 9px 0px 0px;
+  text-indent: 12px;
+}
+
+.error-report {
+  border: 3px;
+  border-radius: 4px 4px 4px 4px;
+  margin: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  display: inline-block;
+  height: fit-content !important;
+  color: red;
+  height: 1.7em;
+  background-color: cornsilk;
+  vertical-align: top;
+  position: relative;
+}
+
+label {
+  display: inline-block;
+  text-align: right;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.instructions {
+  width: 100%;
+  background-color: whitesmoke;
+}
+
+select {
+  background: transparent;
+  position: relative;
+  top: 0px;
+  line-height: 1;
+  border: 2;
+  border-radius: 4px;
+  color: var(--text-color);
+  background-color: var(--control-background);
+}
+
+.disabledpanel {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.invisible {
+  visibility: hidden;
+  display: none;
+}
+
+.selected {
+  border-color: var(--selected-border-color) !important;
+  border-width: 4px !important;
+}
+
+
+/***
+ *      ____          _    _                
+ *     | __ )  _   _ | |_ | |_  ___   _ __  
+ *     |  _ \ | | | || __|| __|/ _ \ | '_ \ 
+ *     | |_) || |_| || |_ | |_| (_) || | | |
+ *     |____/  \__,_| \__| \__|\___/ |_| |_|
+ *                                          
+ */
+
+.btn-default {
+  display: inline-flex;
+  height: 35px;
+  min-width: 60px;
+  margin: 1px;
+  padding: 8px;
+  border-radius: 10px;
+  border-color: var(--border-color);
+  background-color: var(--control-background);
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn-in-h2 {
+  line-height: 6px;
+  height: 23px;
+  margin-right: 8px
+}
+
+.btn-tiny {
+  line-height: 10px;
+  height: 25px;
+  width: 25px;
+  border-radius: 12px;
+  float: right;
+  margin-left: 8px;
+  min-width: 20px;
+}
+
+
+.btn-default:disabled,
+.btn-default[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
+.btn-group {
+  display: block;
+  border-radius: 10px;
+  background-color: var(--container-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 2px;
+  margin: 2px;
+  text-align: center;
+}
+
+.btn-classic {
+  background-image: url('assets/blank_button.png');
+  box-shadow: none;
+  color: black;
+  padding: 2px;
+  vertical-align: top;
+  margin: 1px;
+  width: 82px;
+  height: 82px;
+  background-size: 80px 80px;
+  border-color: var(--border-color);
+}
+
+.source-btn-size {
+  width: 60px;
+  height: 60px;
+  background-size: 60px 60px;
+  font-size: 0.7rem;
+}
+
+.preview-btn-on {
+  background-image: url('assets/blank_green_button.png');
+  box-shadow: 0px 0px 10px lime;
+}
+
+.program-btn-on {
+  background-image: url('assets/blank_red_button.png');
+  box-shadow: 0px 0px 10px red;
+}
+
+.source-btn-on {
+  background-image: url('assets/blank_blue_button.png');
+  box-shadow: 0px 0px 10px blue;
+}
+
+button {
+  clear: both;
+  height: 24px;
+  border-radius: 4px;
+  padding: 0px;
+  margin: 0px;
+  background-color: var(--control-background);
+  color: var(--text-color);
+}

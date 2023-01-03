@@ -1,15 +1,13 @@
 <script>
   const OBS_WEBSOCKET_LATEST_VERSION = '5.0.1'; // https://api.github.com/repos/Palakis/obs-websocket/releases/latest
 
-  import './style.scss';
+  import './style.css';
 
   import PtzCamera from './lib/PtzCamera.svelte';
   import AudioMixer from './lib/AudioMixer.svelte';
   import ObsMain from './lib/ObsMain.svelte';
   import Switch from './lib/Switch.svelte';
   import help_data from './lib/help';
-
-  //import Icon from 'mdi-svelte'
 
   import { onMount, setContext, getContext } from 'svelte';
   import {
@@ -40,14 +38,9 @@
     defaultHue,
   } from './lib/Preferences.js';
   import { writable } from 'svelte/store';
-  import { bind, loop_guard, subscribe, toggle_class } from 'svelte/internal';
-
+  
   import { compareVersions } from 'compare-versions';
-  import Hotkey from './lib/Hotkey.svelte';
-
-  //import {
-  //  mdiToggleSwitch, mdiToggleSwitchOffOutline
-  //} from '@mdi/js'
+  
   let tips = writable();
   let help_text;
 
@@ -511,3 +504,41 @@
     {/each}
   {/if}
 </main>
+
+<style>
+.hue-slider {
+  -webkit-appearance: none;
+  margin-top: 6px;
+  /* made this with a script and pasted it into the stylesheet */
+  background: -webkit-linear-gradient(left, hsla(0, 50%, 50%, 1), hsla(10, 50%, 50%, 1), hsla(20, 50%, 50%, 1), hsla(30, 50%, 50%, 1), hsla(40, 50%, 50%, 1), hsla(50, 50%, 50%, 1), hsla(60, 50%, 50%, 1), hsla(70, 50%, 50%, 1), hsla(80, 50%, 50%, 1), hsla(90, 50%, 50%, 1), hsla(100, 50%, 50%, 1), hsla(110, 50%, 50%, 1), hsla(120, 50%, 50%, 1), hsla(130, 50%, 50%, 1), hsla(140, 50%, 50%, 1), hsla(150, 50%, 50%, 1), hsla(160, 50%, 50%, 1), hsla(170, 50%, 50%, 1), hsla(180, 50%, 50%, 1), hsla(190, 50%, 50%, 1), hsla(200, 50%, 50%, 1), hsla(210, 50%, 50%, 1), hsla(220, 50%, 50%, 1), hsla(230, 50%, 50%, 1), hsla(240, 50%, 50%, 1), hsla(250, 50%, 50%, 1), hsla(260, 50%, 50%, 1), hsla(270, 50%, 50%, 1), hsla(280, 50%, 50%, 1), hsla(290, 50%, 50%, 1), hsla(300, 50%, 50%, 1), hsla(310, 50%, 50%, 1), hsla(320, 50%, 50%, 1), hsla(330, 50%, 50%, 1), hsla(340, 50%, 50%, 1), hsla(350, 50%, 50%, 1), hsla(360, 50%, 50%, 1));
+  border: 2px solid white;
+  height: 15px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.hue-slider:hover {
+  opacity: 1;
+}
+
+.hue-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 11px;
+  height: 13px;
+  background: var(--control-background);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.hue-slider::-moz-range-thumb {
+  width: 11px;
+  height: 13px;
+  background: var(--control-background);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+</style>

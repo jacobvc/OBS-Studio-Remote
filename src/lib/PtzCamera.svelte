@@ -149,7 +149,7 @@
     on:mouseup="{() => MovePtz(camera.name, 'stop')}">
       Rght
     </button>
-    <div data-tap-disabled="true" style="display: inline-block; ">
+    <div data-tap-disabled="true" class="ptz-select-container" >
       &nbsp;&nbsp;Presets<br />
       <select
         bind:this="{presets}"
@@ -165,3 +165,47 @@
     </div>
   </div>
 </div>
+
+<style>
+input.vertical {
+  transform: translateX(-35px) translateY(50px) rotate(-90deg);
+  width: 98px;
+  height: 28px;
+  vertical-align: top;
+  position: relative;
+}
+
+.ptz-select-container {
+  display: inline-block;
+}
+
+.ptz-velocity {
+  display: inline-block;
+  top: -98px;
+  position: relative;
+  width: 36px;
+}
+
+.ptz-btns-group {
+  display: inline-block;
+  position: relative;
+
+  top: -22px;
+  max-width: 45px;
+  min-width: 0px;
+}
+
+.pan-btn-pos {
+  position: relative;
+  top: -44px;
+}
+
+.ptz-btn {
+  height: 45px;
+  width: 45px;
+  border-radius: 10px;
+  background-color: rgba(var(--control-background), 15%);
+  border-color: var(--border-color);
+}
+
+</style>
