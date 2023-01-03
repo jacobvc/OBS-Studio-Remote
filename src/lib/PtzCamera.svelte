@@ -20,6 +20,8 @@
   let turboShots = 0;
   let totalCycles = 0;
 
+  let noObsSource;
+
   $: $obsConnected;
 
   onMount(async () => {
@@ -41,7 +43,7 @@
       return;
     }
     if ($obsConnected) {
-      if (camera && camera.name) {
+      if (camera && camera.name && camera.active && !noObsSource) {
         let data = await obsSendCommand('GetSourceScreenshot', {
           sourceName: camera.name,
           imageFormat: imageFormat,
@@ -94,12 +96,20 @@
   <h2 class="content-heading">
     {camera.name}
     <button
-      class="btn-default btn-in-h2"
+      class="btn-default item-in-h2 right"
       class:invisible="{camera.active}"
       on:click="{() => ConnectCamera(camera)}"
       type="submit">
       Connect
     </button>
+    <span
+      class="item-in-h2 right"
+      class:invisible="{!camera.active}">
+      <label for="">No OBS Source</label>
+      <input type="checkbox"
+      bind:checked="{noObsSource}"
+      />
+    </span>
   </h2>
   <div
     class="content-block "

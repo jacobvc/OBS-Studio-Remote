@@ -184,16 +184,6 @@ select {
   background-color: var(--control-background);
 }
 
-.disabledpanel {
-  pointer-events: none;
-  opacity: 0.4;
-}
-
-.invisible {
-  visibility: hidden;
-  display: none;
-}
-
 .selected {
   border-color: var(--selected-border-color) !important;
   border-width: 4px !important;
@@ -222,10 +212,8 @@ select {
   flex-direction: column;
 }
 
-.btn-in-h2 {
-  line-height: 6px;
-  height: 23px;
-  margin-right: 8px
+.right {
+  float: right;
 }
 
 .btn-tiny {
@@ -241,8 +229,8 @@ select {
 
 .btn-default:disabled,
 .btn-default[disabled] {
-  border: 1px solid #999999;
-  background-color: #cccccc;
+ /* border: 1px solid #999999; */
+  background-color: #bbb;
   color: #666666;
 }
 
@@ -301,4 +289,28 @@ button {
   margin: 0px;
   background-color: var(--control-background);
   color: var(--text-color);
+}
+
+.item-in-h2 + label, .item-in-h2 label  {
+  font-size:small;
+  font-weight: normal;
+}
+.item-in-h2 {
+  line-height: 6px;
+  height: 23px;
+  margin-right: 8px;
+}
+.disabledpanel {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.item-in-h2 + input[type=checkbox], .item-in-h2  input[type=checkbox] {
+  margin-top: 0px;
+  font-size:small;
+}
+
+.invisible {
+  visibility: hidden;
+  display: none;
 }
