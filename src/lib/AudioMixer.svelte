@@ -278,11 +278,11 @@ input.audio {
 
 input.audio::-webkit-slider-runnable-track {
   background-color: black;
-  height: 2px;
+  height: 3px;
 }
 input.audio::-moz-range-track {
   background-color: black;
-  height: 2px;
+  height: 3px;
 }
 input.audio::-webkit-slider-thumb {
   -webkit-appearance: none;
