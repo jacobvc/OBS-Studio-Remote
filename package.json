@@ -1,7 +1,7 @@
 {
-  "name": "my-svelte-project",
-  "private": true,
-  "version": "0.0.0",
+  "name": "obs-studio-remote",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,6 +1,4 @@
 <script>
-  const OBS_WEBSOCKET_LATEST_VERSION = '5.0.1'; // https://api.github.com/repos/Palakis/obs-websocket/releases/latest
-
   import './style.css';
 
   import PtzCamera from './lib/PtzCamera.svelte';
@@ -11,6 +9,7 @@
 
   import { onMount, setContext, getContext } from 'svelte';
   import {
+    obsModuleVersion,
     obs,
     avDevices,
     obsSendCommand,
@@ -107,13 +106,13 @@
     }
     const data = await obsSendCommand('GetVersion');
     const version = data.obsWebSocketVersion || '';
-    console.log('OBS-websocket version:', version);
-    if (compareVersions(version, OBS_WEBSOCKET_LATEST_VERSION) > 0) {
-      alert(
-        'You are running an outdated OBS-websocket (version ' +
+    console.log('OBS-websocket module version:' + obsModuleVersion + ' server version:' + version);
+    if (compareVersions(version, obsModuleVersion) > 0) {
+      $runtimeError =
+        'Server is runnung OBS-websocket version ' +
           version +
-          '), please upgrade to the latest version for full compatibility.'
-      );
+          ', upgrade this app (from ' + obsModuleVersion + ') for full compatibility.'
+      ;
     }
     if (
       data.supportedImageFormats.includes('webp') &&
@@ -177,7 +176,7 @@
     serverversion = data.versionStr;
     const version = data.obsWebSocketVersion || '';
     console.log('OBS-websocket version:', version);
-    if (compareVersions(version, OBS_WEBSOCKET_LATEST_VERSION) > 0) {
+    if (compareVersions(version, obsModuleVersion) > 0) {
       alert(
         'You are running an outdated OBS-websocket (version ' +
           version +

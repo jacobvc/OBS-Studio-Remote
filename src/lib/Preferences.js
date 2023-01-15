@@ -1,10 +1,18 @@
 import OBSWebSocket from 'obs-websocket-js'
 import { writable, get } from 'svelte/store'
 
+import { devDependencies } from '../../package.json';
+
+function trim_end(str, chr) {
+  var rgxtrim = (!chr) ? new RegExp('^\\s+|\\s+$', 'g') : new RegExp('^'+chr+'+|'+chr+'+$', 'g');
+  return str.replace(rgxtrim, '');
+}
+
 let settings;
 
-let fileHandle
+let fileHandle;
 
+export const obsModuleVersion = trim_end(devDependencies['obs-websocket-js'], '\\^');
 export const defaultHue = 240;
 
 
