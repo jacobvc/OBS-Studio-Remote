@@ -99,7 +99,7 @@
             <div>
                 Edit Hotkey Groups
                 <button
-                    class="btn-default btn-in-h2"
+                    class="btn-default item-in-h2"
                     disabled="{!thisGroup ||
                         $hotkeys.groups.indexOf(thisGroup) < 1}"
                     on:click="{() => moveleft()}"
@@ -107,7 +107,7 @@
                     &lt;
                 </button>
                 <button
-                    class="btn-default btn-in-h2"
+                    class="btn-default item-in-h2"
                     disabled="{!thisGroup ||
                         $hotkeys.groups.indexOf(thisGroup) >=
                             $hotkeys.groups.length - 1}"
@@ -116,13 +116,16 @@
                     &gt;
                 </button>
                 <button
-                    class="btn-default btn-in-h2"
+                    class="btn-default item-in-h2"
                     on:click="{() => newGroup()}"
                     type="submit">
                     +
                 </button>
-                Above scenes
-                <input type="checkbox" bind:checked="{$hotkeys.above}" />
+                <label for=""
+                class="item-in-h2"
+                >Above Scenes</label>
+                <input type="checkbox" 
+                bind:checked="{$hotkeys.above}" />
             </div>
         </h2>
         <div class="content-flex">

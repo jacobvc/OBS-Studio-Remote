@@ -99,7 +99,7 @@
   <h2 class="content-heading">
     {mixer.name}
     <button
-      class="btn-default btn-in-h2"
+      class="btn-default item-in-h2 right"
       class:invisible="{mixer.active}"
       on:click="{() => ConnectMixer(mixer)}"
       type="submit">
@@ -170,10 +170,10 @@
   left: 25px;
 }
 
+/*
 progress.vertical {
   width: 96px;
   height: 4px;
-  /*border: 1px solid #060707;*/
   position: relative;
   margin: 10px auto;
   background-color: var(--control-background);
@@ -185,6 +185,7 @@ progress.vertical {
   -webkit-appearance: none;
   appearance: none;
 }
+*/
 
 progress.audio {
   width: calc(100% - 25px);
@@ -277,11 +278,11 @@ input.audio {
 
 input.audio::-webkit-slider-runnable-track {
   background-color: black;
-  height: 2px;
+  height: 3px;
 }
 input.audio::-moz-range-track {
   background-color: black;
-  height: 2px;
+  height: 3px;
 }
 input.audio::-webkit-slider-thumb {
   -webkit-appearance: none;
