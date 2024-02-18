@@ -23,6 +23,7 @@
     obsPassword,
     avdAddress,
     avdPassword,
+    obsProjOutput,
     runtimeError,
     obsConnectError,
     avdConnectError,

@@ -70,7 +70,8 @@ export let useAv = writable(settings.useAv === 'true' || false);
 useAv.subscribe((value) => {
   settings.useAv = String(value); persistSettings();
 });
-// Configure whether to show OBS scene sources
+export let obsProjOutput = writable(settings.obsProjOutput ? settings.obsProjOutput : 0);
+obsProjOutput.subscribe((value) => { settings.obsProjOutput = value; persistSettings(); });
 export let themeHue = writable(settings.themeHue || defaultHue)
 themeHue.subscribe((value) => { settings.themeHue = value; persistSettings(); });
 
