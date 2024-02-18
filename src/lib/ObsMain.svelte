@@ -6,6 +6,7 @@
     showSources,
     obsConnected,
     obsProjOutput,
+    obsProjScene,
     hotkeys,
   } from './Preferences.js';
   import Hotkey from './Hotkey.svelte';
@@ -65,6 +66,10 @@
             monitorlist.monitors[i].monitorName;
         }
       }
+
+      if ($obsProjOutput > PROJECTOR_PREVIEW && $obsProjScene) {
+        ChangeProjectorScene($obsProjScene);
+      }
       screenshotInterval = setInterval(getScreenshot, 1000);
     }
   });
@@ -77,23 +82,27 @@
     console.log('SetCurrentProgram' + '(' + name + ')');
     await obsSendCommand('SetCurrentProgramScene', { sceneName: name });
   }
+
+  async function ShowProjector(name) {
+    console.log(
+      'OpenSourceProjector(Scene, ' +
+        name +
+        ', ' +
+        ($obsProjOutput - PROJECTOR_FIRST_DISPLAY) +
+        ')',
+    );
+    ChangeProjectorScene(name);
+    await obsSendCommand('OpenSourceProjector', {
+      sourceName: name,
+      monitorIndex: $obsProjOutput - PROJECTOR_FIRST_DISPLAY,
+    });
+  }
+
   async function SelectProjector(name) {
     console.log('SetCurrentProjector(' + name + ')');
     if ($obsProjOutput == PROJECTOR_PREVIEW) {
       await obsSendCommand('SetCurrentPreviewScene', { sceneName: name });
     } else if ($obsProjOutput > PROJECTOR_NONE) {
-      console.log(
-        'OpenSourceProjector(Scene, ' +
-          name +
-          ', ' +
-          ($obsProjOutput - PROJECTOR_FIRST_DISPLAY) +
-          ')',
-      );
-      ChangeProjectorScene(name);
-      await obsSendCommand('OpenSourceProjector', {
-        sourceName: name,
-        monitorIndex: $obsProjOutput - PROJECTOR_FIRST_DISPLAY,
-      });
     }
   }
   // eslint-disable-next-line
@@ -221,6 +230,18 @@
             <option value="{monitor.value}">{monitor.name}</option>
           {/each}
         </select>
+        {#if $obsProjOutput > PROJECTOR_PREVIEW && scenes}
+          <button on:click="{() => ShowProjector($obsProjScene)}">
+            Show</button
+          ><br />
+          <select bind:value="{$obsProjScene}" title="ProjScene"
+            on:change="{() => ChangeProjectorScene($obsProjScene)}"
+          >
+            {#each scenes as scene}
+              <option>{scene.sceneName}</option>
+            {/each}
+          </select>
+        {/if}
       </div>
       <Hotkey />
     </div>
@@ -232,13 +253,27 @@
       <h2 class="content-heading-vertical">Projector</h2>
       <img bind:this="{projector}" height="{imageHeight}" alt="Projector" />
       <div class="subpanel-2row-flow">
-        {#if scenes}
+        {#if scenes && $obsProjOutput == PROJECTOR_PREVIEW}
           {#each scenes as scene}
             <button
               class:btn-classic="{true}"
               class:projector-btn-on="{scene.sceneName == projectorSceneName}"
               on:click="{() => SelectProjector(scene.sceneName)}">
               {scene.sceneName}
+            </button>
+          {/each}
+        {:else if projectorSources && $obsProjScene}
+          {#each projectorSources as item}
+            <button
+              class:btn-classic="{true}"
+              class:projector-btn-on="{item.sceneItemEnabled}"
+              on:click="{() =>
+                ProjectorItemEnable(
+                  projectorSceneName,
+                  item.sceneItemId,
+                  !item.sceneItemEnabled,
+                )}">
+              {item.sourceName}
             </button>
           {/each}
         {/if}

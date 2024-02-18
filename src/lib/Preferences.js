@@ -67,11 +67,11 @@ export let showSources = writable(settings.showSources === 'true' || false)
 showSources.subscribe((value) => { settings.showSources = value; persistSettings(); });
 // Configure whether to use A/V devices
 export let useAv = writable(settings.useAv === 'true' || false);
-useAv.subscribe((value) => {
-  settings.useAv = String(value); persistSettings();
-});
+useAv.subscribe((value) => {settings.useAv = String(value); persistSettings();});
 export let obsProjOutput = writable(settings.obsProjOutput ? settings.obsProjOutput : 0);
 obsProjOutput.subscribe((value) => { settings.obsProjOutput = value; persistSettings(); });
+export let obsProjScene = writable(localStorage.obsProjScene ? localStorage.obsProjScene : '');
+obsProjScene.subscribe((value) => { localStorage.obsProjScene = value });
 export let themeHue = writable(settings.themeHue || defaultHue)
 themeHue.subscribe((value) => { settings.themeHue = value; persistSettings(); });
 
