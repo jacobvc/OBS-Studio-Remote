@@ -41,6 +41,7 @@
   
   import { compareVersions } from 'compare-versions';
   
+  let obsServerWebsockVersion = '';
   let tips = writable();
   let help_text;
 
@@ -106,15 +107,15 @@
       loadSettingsFromObs(true);
     }
     const data = await obsSendCommand('GetVersion');
-    const version = data.obsWebSocketVersion || '';
-    console.log('OBS-websocket module version:' + obsModuleVersion + ' server version:' + version);
-    if (compareVersions(version, obsModuleVersion) > 0) {
+    obsServerWebsockVersion = data.obsWebSocketVersion || '';
+    console.log('OBS-websocket module version:' + obsModuleVersion + ' server version:' + obsServerWebsockVersion);
+    /* if (compareVersions(obsServerWebsockVersion, obsModuleVersion) > 0) {
       $runtimeError =
         'Server is runnung OBS-websocket version ' +
-          version +
+          obsServerWebsockVersion +
           ', upgrade this app (from ' + obsModuleVersion + ') for full compatibility.'
       ;
-    }
+    } */
     if (
       data.supportedImageFormats.includes('webp') &&
       document
@@ -175,15 +176,16 @@
     const data = await avdSendCommand('GetVersion');
     servername = data.server;
     serverversion = data.versionStr;
-    const version = data.obsWebSocketVersion || '';
-    console.log('OBS-websocket version:', version);
-    if (compareVersions(version, obsModuleVersion) > 0) {
+    obsServerWebsockVersion = data.obsWebSocketVersion || '';
+    console.log('OBS-websocket version:', obsServerWebsockVersion);
+    /*
+    if (compareVersions(obsServerWebsockVersion, obsModuleVersion) > 0) {
       alert(
         'You are running an outdated OBS-websocket (version ' +
-          version +
+          obsServerWebsockVersion +
           '), please upgrade to the latest version for full compatibility.'
       );
-    }
+    } */
     avDeviceList = await avdSendCommand('GetAvDevices');
     $avdConnected = true;
     console.log('A/V Devices Connected');
@@ -281,8 +283,9 @@
         <button
           class="btn-default btn-tiny"
           on:click="{() => ($runtimeError = '')}">
-          OK
-        </button>
+          <img style="margin-top:-10px"
+          src="menu-x-50.png" alt="close"
+          width="24" />        </button>
       </div>
     {:else}
       <div
@@ -387,7 +390,12 @@
             </button>
           {/if}
         </div>
-      </div>
+        </div>
+        <div class="container">
+          <div class="subpanel-3row-flow">
+          Websocket Version<br>Client {obsModuleVersion}<br>OBS {obsServerWebsockVersion }
+          </div>
+        </div>
       <div class="instructions" class:invisible="{!help_text}">
         <hr />
         {@html help_text}

@@ -7,7 +7,6 @@
     obsConnected,
     obsProjOutput,
     obsProjScene,
-    hotkeys,
   } from './Preferences.js';
   import Hotkey from './Hotkey.svelte';
 
@@ -221,31 +220,30 @@
 </script>
 
 <div>
-  {#if $hotkeys.above}
-    <div style="display:flex" class="container">
-      <div class="container">
-        <label for="">Projector</label><br />
-        <select bind:value="{$obsProjOutput}" title="Monitor">
-          {#each monitors as monitor}
-            <option value="{monitor.value}">{monitor.name}</option>
+  <div style="display:flex" class="container">
+    <div class="container">
+      <label for="">Projector</label><br />
+      <select bind:value="{$obsProjOutput}" title="Monitor">
+        {#each monitors as monitor}
+          <option value="{monitor.value}">{monitor.name}</option>
+        {/each}
+      </select>
+      {#if $obsProjOutput > PROJECTOR_PREVIEW && scenes}
+        <button on:click="{() => ShowProjector($obsProjScene)}">
+          Show</button
+        ><br />
+        <select
+          bind:value="{$obsProjScene}"
+          title="ProjScene"
+          on:change="{() => ChangeProjectorScene($obsProjScene)}">
+          {#each scenes as scene}
+            <option>{scene.sceneName}</option>
           {/each}
         </select>
-        {#if $obsProjOutput > PROJECTOR_PREVIEW && scenes}
-          <button on:click="{() => ShowProjector($obsProjScene)}">
-            Show</button
-          ><br />
-          <select bind:value="{$obsProjScene}" title="ProjScene"
-            on:change="{() => ChangeProjectorScene($obsProjScene)}"
-          >
-            {#each scenes as scene}
-              <option>{scene.sceneName}</option>
-            {/each}
-          </select>
-        {/if}
-      </div>
-      <Hotkey />
+      {/if}
     </div>
-  {/if}
+    <Hotkey />
+  </div>
 </div>
 <div class="container">
   {#if $obsProjOutput != PROJECTOR_NONE}
@@ -309,12 +307,15 @@
     <div class="subpanel-2row-flow">
       {#if scenes}
         {#each scenes as scene}
-          <button
-            class:btn-classic="{true}"
-            class:program-btn-on="{scene.sceneName == programSceneName}"
-            on:click="{() => SelectProgram(scene.sceneName)}">
-            {scene.sceneName}
-          </button>
+          {#if $obsProjOutput < PROJECTOR_FIRST_DISPLAY 
+          || $obsProjScene != scene.sceneName}
+            <button
+              class:btn-classic="{true}"
+              class:program-btn-on="{scene.sceneName == programSceneName}"
+              on:click="{() => SelectProgram(scene.sceneName)}">
+              {scene.sceneName}
+            </button>
+          {/if}
         {/each}
       {/if}
     </div>
@@ -338,21 +339,6 @@
           </button>
         {/each}
       </div>
-    </div>
-  {/if}
-</div>
-<div>
-  {#if !$hotkeys.above}
-    <div style="display:flex" class="container">
-      <div class="container">
-        <label for="">Projector</label><br />
-        <select bind:value="{$obsProjOutput}" title="Monitor">
-          {#each monitors as monitor}
-            <option value="{monitor.value}">{monitor.name}</option>
-          {/each}
-        </select>
-      </div>
-      <Hotkey />
     </div>
   {/if}
 </div>

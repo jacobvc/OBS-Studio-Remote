@@ -121,11 +121,6 @@
                     type="submit">
                     +
                 </button>
-                <label for=""
-                class="item-in-h2"
-                >Above Scenes</label>
-                <input type="checkbox" 
-                bind:checked="{$hotkeys.above}" />
             </div>
         </h2>
         <div class="content-flex">
@@ -134,7 +129,8 @@
                     class="btn-group"
                     class:selected="{group === thisGroup}"
                     on:click="{(e) => editGroup(e, group)}"
-                    on:keydown="{(e) => editGroup(e, group)}">
+                    on:keydown="{(e) => editGroup(e, group)}"
+                    role="button" tabindex="0">
                     <span contenteditable bind:innerHTML="{group.label}"></span
                     ><br />
                     {#each group.buttons as button}
