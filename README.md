@@ -104,7 +104,7 @@ No Projector View is displayed.
 
 **Preview**
 
-The projector displays and is synchronized with the OBS Studio Preview. If an actual projector is intended, it may be connected by right clicking on 
+The projector displays and is synchronized with the OBS Studio Preview. If a physical projector is intended, it may be connected by right clicking on 
 the OBS Studio Preview window.
 
 **Display**
