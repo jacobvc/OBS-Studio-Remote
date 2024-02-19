@@ -64,6 +64,7 @@ The actual operation specifics can be configured as specified in "Configuration 
 Scene View displays the selected scene next to a classic button for each scene that exists in OBS Studio. Pressing the button selects the scene for that view.
 
 When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.
+<img src="public/projectorsettings.jpg" >
 
 <img src="public/sceneview.jpg" >
 
