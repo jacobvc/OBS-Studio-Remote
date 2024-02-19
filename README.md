@@ -72,22 +72,48 @@ When Show Sources is enabled, a button is presented for each source in the scene
 
 <img src="public/sceneviewsources.jpg" >
 
-### Projector View
-The settings configuration supports selecting a projector source from **None**, **Preview**, or one of the displays attached to the host computer.
-
-<img src="public/projectorsettings.jpg" >
-
-**None**
-
-**Preview**
-
-**Display**
-
 ### Program View
 The program view shows the "Program" content (the same content as displayed on the OBS Studio Program View). A buttton is present
 for each available scene. When a button is pressed, OBS Studio's Program selection is changed.
 
 When sources are shown, there is a button to enable / disable each source in the selected scene.
+
+### Projector View
+>**A few words about OBS Studio Projectors**
+>
+>An OBS Studio projector is a window displaying the contents of the selected item (source, scene, Program or Preview).
+>A windowed projector is a sizeable window, and a full screen projector is a screen sised borderless window. There is no re-use or
+>automatic closure of existing projector windows, and there provision for closing them programattically. If one, for example,
+>opens a full screen projector for a selected scene opun each scene change, a stack of dozens of screen could very quickly accumulate.
+>These screens are closed by manually selecting each one and pressing the ESC key.
+>
+>The logical approach of opening a full screen projector for a scene when it is selected is unsatisfactory.
+>
+>This implementation has taken a "scene of scenes" approach. That is, a combining scene is constructed by creating a new scene that is
+>composed entirely of the rest of the scenes, and having control buttons enable / disable the sub-scenes
+
+The settings configuration supports selecting a projector source from **None**, **Preview**, or one of the displays attached to the host computer.
+
+<img src="public/projectorsettings.jpg" >
+
+These there selections result in the following behaviors:
+
+**None**
+
+No Projector View is displayed.
+
+**Preview**
+
+The projector displays and is synchronized with the OBS Studio Preview. If an actual projector is intended, it may be connected by right clicking on 
+the OBS Studio Preview window.
+
+**Display**
+
+The configured scene, "Combo" in this example, is sent to the projector. The "Show" button will open a new full screen projector of the
+"Combo" scene. A projector (full screen or windowed) can also be opened by right clicking on the "Combo" scene name in OBS Studio.
+
+The projector view shows the configured scene. A buttton is present
+for each available sub-scene. When a button is pressed, sub-scenes are enabled / disabled.
 
 ## AvDeviceControl VISCA Camera View
 
