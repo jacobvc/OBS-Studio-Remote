@@ -64,6 +64,8 @@ The actual operation specifics can be configured as specified in "Configuration 
 Live View displays an optional Projector view followd by a Program view. Each view displays an image of the selected content 
 next to a classic button for each available content selection. Pressing the button selects the content for that view.
 
+See the Projector View and Program View sections for the content associated with each view.
+
 <img src="public/sceneview.jpg" >
 
 When Show Sources is enabled, a button is presented for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.
@@ -71,10 +73,21 @@ When Show Sources is enabled, a button is presented for each source in the scene
 <img src="public/sceneviewsources.jpg" >
 
 ### Projector View
-When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.
+The settings configuration supports selecting a projector source from **None**, **Preview**, or one of the displays attached to the host computer.
+
 <img src="public/projectorsettings.jpg" >
 
+**None**
+
+**Preview**
+
+**Display**
+
 ### Program View
+The program view shows the "Program" content (the same content as displayed on the OBS Studio Program View). A buttton is present
+for each available scene. When a button is pressed, OBS Studio's Program selection is changed.
+
+When sources are shown, there is a button to enable / disable each source in the selected scene.
 
 ## AvDeviceControl VISCA Camera View
 
@@ -115,6 +128,7 @@ All configuration and settings are stored in the browser local data. The two cat
   - Show Sources
   - Use A/V
   - Hotkey Configuration (JSON object)
+  - OBS Websocket versions for both OBS Studio and for the javascript client library
   - Theme color
 
 The user interface allows choosing whether to persist settings in OBS Studio or the browser local data. 
@@ -140,7 +154,7 @@ below a label. A button press results in firing the associated hotkey.
 
 The default configuration includes an example "Change Slide" group with a '<'
 button connected to the SlideShow.PreviousSlide named hotkey and a '>' button
-connected to the SlideSHow.NextSlide named hotkey.
+connected to the SlideSHow.NextSlide named hotkey (which are only available if a slideshow is present in the configuration).
 
 <img src="public/hotkeys.jpg" >
 
