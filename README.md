@@ -60,17 +60,21 @@ If there was not a previous connection, or the connection attempt fails, the man
 
 The actual operation specifics can be configured as specified in "Configuration and Settings".
 
-## OBS Studio Scene View
-Scene View displays the selected scene next to a classic button for each scene that exists in OBS Studio. Pressing the button selects the scene for that view.
-
-When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.
-<img src="public/projectorsettings.jpg" >
+## OBS Studio Live View
+Live View displays an optional Projector view followd by a Program view. Each view displays an image of the selected content 
+next to a classic button for each available content selection. Pressing the button selects the content for that view.
 
 <img src="public/sceneview.jpg" >
 
 When Show Sources is enabled, a button is presented for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.
 
 <img src="public/sceneviewsources.jpg" >
+
+### Projector View
+When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.
+<img src="public/projectorsettings.jpg" >
+
+### Program View
 
 ## AvDeviceControl VISCA Camera View
 
