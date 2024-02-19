@@ -38,13 +38,44 @@ export const help_data = [
 <p>If there was not a previous connection, or the connection attempt fails, the manual connect panel will be displayed. Connect by pressing the "Connect" button</p>
 <p><img src="connect.jpg" ></p>
 <p>The actual operation specifics can be configured as specified in "Configuration and Settings".</p>`},
-{ topic: `OBS Studio Scene View`,
- text: `<h2>OBS Studio Scene View</h2>
-<p>Scene View displays the selected scene next to a classic button for each scene that exists in OBS Studio. Pressing the button selects the scene for that view.</p>
-<p>When OBS Studio is in studio mode, a Scene View is displayed for each of Preview (labeled Projector) and Program.</p>
+{ topic: `OBS Studio Live View`,
+ text: `<h2>OBS Studio Live View</h2>
+<p>Live View displays an optional Projector view followd by a Program view. Each view displays an image of the selected content 
+next to a classic button for each available content selection. Pressing the button selects the content for that view.</p>
+<p>See the Projector View and Program View sections for the content associated with each view.</p>
 <p><img src="sceneview.jpg" ></p>
 <p>When Show Sources is enabled, a button is presented for each source in the scene. Those buttons may be used to enable / disable any of the sources in real time.</p>
-<p><img src="sceneviewsources.jpg" ></p>`},
+<p><img src="sceneviewsources.jpg" ></p>
+<h3>Program View</h3>
+<p>The program view shows the "Program" content (the same content as displayed on the OBS Studio Program View). A button is present
+for each available scene. When a button is pressed, OBS Studio's Program selection is changed.</p>
+<p>When sources are shown, there is a button to enable / disable each source in the selected scene.</p>
+<h3>Projector View</h3>
+<blockquote>
+<p><strong>A few words about OBS Studio Projectors</strong></p>
+<p>An OBS Studio projector is a window displaying the contents of the selected item (source, scene, Program or Preview).
+A windowed projector is a sizeable window, and a full screen projector is a screen sised borderless window. There is no re-use or
+automatic closure of existing projector windows, and there provision for closing them programattically. If one, for example,
+opens a full screen projector for a selected scene opun each scene change, a stack of dozens of screen could very quickly accumulate.
+These screens are closed by manually selecting each one and pressing the ESC key.</p>
+<p>The logical approach of opening a full screen projector for a scene when it is selected is unsatisfactory.</p>
+<p>This implementation has taken a "scene of scenes" approach. That is, a combining scene is constructed by creating a new scene that is
+composed entirely of the rest of the scenes, and having control buttons enable / disable the sub-scenes</p>
+</blockquote>
+<p>The settings configuration supports selecting a projector source from <strong>None</strong>, <strong>Preview</strong>, or one of the displays attached to the host computer.</p>
+<p><img src="projectorsettings.jpg" ></p>
+<p>These there selections result in the following behaviors:</p>
+<p><strong>None</strong></p>
+<p>No Projector View is displayed.</p>
+<p><strong>Preview</strong></p>
+<p>The projector displays and is synchronized with the OBS Studio Preview. If a physical projector is intended, it may be connected by right clicking on 
+the OBS Studio Preview window.</p>
+<p><strong>Display</strong></p>
+<p>The configured scene, "Combo" in this example, is sent to the projector. The "Show" button will open a new full screen projector of the
+"Combo" scene. A projector (full screen or windowed) can also be opened by right clicking on the "Combo" scene name in OBS Studio.</p>
+<p>The projector view shows the configured scene. A button is present
+for each available sub-scene. When a button is pressed, sub-scenes are enabled / disabled.</p>
+<p>When operating in this mode, the configured scene does not appear in the Program view.</p>`},
 { topic: `AvDeviceControl VISCA Camera View`,
  text: `<h2>AvDeviceControl VISCA Camera View</h2>
 <p><img src="cameraview.jpg" ></p>`},
@@ -78,6 +109,7 @@ displayed scene(s) and allow changing which source are active fr each scene.</li
   - Show Sources
   - Use A/V
   - Hotkey Configuration (JSON object)
+  - OBS Websocket versions for both OBS Studio and for the javascript client library
   - Theme color</p>
 <p>The user interface allows choosing whether to persist settings in OBS Studio or the browser local data. </p>
 <p>When configured to persist settings in OBS Studio, a OBS Studio persisted data slot name must be provided, and synchronization may optionally be enabled.</p>
@@ -99,7 +131,7 @@ displayed scene(s) and allow changing which source are active fr each scene.</li
 below a label. A button press results in firing the associated hotkey.</p>
 <p>The default configuration includes an example "Change Slide" group with a '&lt;'
 button connected to the SlideShow.PreviousSlide named hotkey and a '&gt;' button
-connected to the SlideSHow.NextSlide named hotkey.</p>
+connected to the SlideSHow.NextSlide named hotkey (which are only available if a slideshow is present in the configuration).</p>
 <p><img src="hotkeys.jpg" ></p>
 <p>When the Edit Hotkeys switch is turned on, the hotkey display changes to edit
 mode. </p>
