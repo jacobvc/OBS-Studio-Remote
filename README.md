@@ -73,7 +73,7 @@ When Show Sources is enabled, a button is presented for each source in the scene
 <img src="public/sceneviewsources.jpg" >
 
 ### Program View
-The program view shows the "Program" content (the same content as displayed on the OBS Studio Program View). A buttton is present
+The program view shows the "Program" content (the same content as displayed on the OBS Studio Program View). A button is present
 for each available scene. When a button is pressed, OBS Studio's Program selection is changed.
 
 When sources are shown, there is a button to enable / disable each source in the selected scene.
@@ -112,8 +112,10 @@ the OBS Studio Preview window.
 The configured scene, "Combo" in this example, is sent to the projector. The "Show" button will open a new full screen projector of the
 "Combo" scene. A projector (full screen or windowed) can also be opened by right clicking on the "Combo" scene name in OBS Studio.
 
-The projector view shows the configured scene. A buttton is present
+The projector view shows the configured scene. A button is present
 for each available sub-scene. When a button is pressed, sub-scenes are enabled / disabled.
+
+When operating in this mode, the configured scene does not appear in the Program view.
 
 ## AvDeviceControl VISCA Camera View
 
