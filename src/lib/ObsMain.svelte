@@ -13,8 +13,6 @@
   export let imageFormat = 'jpg';
 
   let isStudioMode = false;
-  let programSceneName = '';
-  let projectorSceneName = '';
 
   let program = {};
   let projector = {};
@@ -29,11 +27,15 @@
   const PROJECTOR_PREVIEW = 1;
   const PROJECTOR_FIRST_DISPLAY = 2;
 
-  let projectorSources = [];
-  let projectorItemSources = [];
-  let programSources = [];
-  let projectorInputItem = '';
+  let projectorSceneName = ''; // Current scene name for projector
 
+  let projectorSources = [];    // Sources in projectorSceneName for non-preview projector
+  let projectorSelection = '';  // Selected item in projectorSources
+  let projectorSelectionSources = []; // Sources in projectorSelection
+
+  let programSceneName = '';   // Current scene name for program
+  let programSources = [];      // Sources for program
+  
   onMount(async () => {
     let data;
 
@@ -100,8 +102,8 @@
 
     for (let i = 0; i < projectorSources.length; i++) {
       if (projectorSources[i].sceneItemId == item.sceneItemId) {
-        projectorInputItem = projectorSources[i].sourceName;
-        projectorItemSources = await GetSources(projectorInputItem);
+        projectorSelection = projectorSources[i].sourceName;
+        projectorSelectionSources = await GetSources(projectorSelection);
       } else {
         await SceneSourceEnable(
           scene_name,
@@ -121,8 +123,8 @@
       // from the (first) enabled pprojector source
       for (let i = 0; i < projectorSources.length; i++) {
         if (projectorSources[i].sceneItemEnabled) {
-          projectorInputItem = projectorSources[i].sourceName;
-          projectorItemSources = await GetSources(projectorInputItem);
+          projectorSelection = projectorSources[i].sourceName;
+          projectorSelectionSources = await GetSources(projectorSelection);
           break;
         }
       }
@@ -130,8 +132,8 @@
   }
 
   async function ProjectorSourceEnable(item, enabled) {
-    await SceneSourceEnable(projectorInputItem, item.sceneItemId, enabled);
-    projectorItemSources = await GetSources(projectorInputItem);
+    await SceneSourceEnable(projectorSelection, item.sceneItemId, enabled);
+    projectorSelectionSources = await GetSources(projectorSelection);
   }
 
   /*
@@ -193,6 +195,7 @@
       sceneItemEnabled: enabled,
     });
     if (scene_name == projectorSceneName && enabled) {
+      // Enabled source in projectorSceneName. Get projector sources for this selection
       projectorSources = await GetSources(scene_name);
     }
   }
@@ -231,8 +234,8 @@
       ProjectorActivateScene(data.sceneName);
     }
     if (
-      $obsProjOutput > PROJECTOR_PREVIEW && data.sceneName === projectorInputItem) {
-      // In this case, projectorInputItem is in projectorSceneName and
+      $obsProjOutput > PROJECTOR_PREVIEW && data.sceneName === projectorSelection) {
+      // In this case, projectorSelection is in projectorSceneName and
       // we want to activate projectorSceneName
       ProjectorActivateScene(projectorSceneName);
     }
@@ -353,9 +356,9 @@
                   )}">
                 {item.sourceName}
               </button>
-            {/each}
-          {:else}
-            {#each projectorItemSources as item}
+             {/each}
+         {:else}
+            {#each projectorSelectionSources as item}
               <button
                 class:source-btn-on="{item.sceneItemEnabled}"
                 class:source-btn-size="{true}"
