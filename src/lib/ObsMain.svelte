@@ -29,8 +29,9 @@
   const PROJECTOR_PREVIEW = 1;
   const PROJECTOR_FIRST_DISPLAY = 2;
 
-  let projectorSources;
-  let programSources;
+  let projectorSources = [];
+  let projectorItemSources = [];
+  let programSources = [];
 
   onMount(async () => {
     let data;
@@ -137,7 +138,7 @@
       sceneItemId: item_id,
       sceneItemEnabled: enabled,
     });
-    if (scene_name == projectorSceneName) {
+    if (scene_name == projectorSceneName && enabled) {
       projectorSources = await GetSources(scene_name);
     }
   }
@@ -148,6 +149,18 @@
     await SelectProgram(scene_name);
   }
   async function ProjectorItemEnable(scene_name, item_id, enabled) {
+    await SceneItemEnable(scene_name, item_id, true);
+    projectorItemSources = await GetSources(scene_name);
+    for (let i = 0; i < projectorSources.length; i++) {
+      if (projectorSources[i].sceneItemId == item_id) {
+        projectorItemSources = await GetSources(projectorSources[i].sourceName);
+      }
+      if (projectorSources[i].sceneItemId != item_id) {
+        await SceneItemEnable(scene_name,
+          projectorSources[i].sceneItemId, false);
+      }
+    }
+    
     await SceneItemEnable(scene_name, item_id, enabled);
   }
 
@@ -277,10 +290,11 @@
         {/if}
       </div>
     </div>
-    {#if projectorSources && $showSources}
+    {#if $showSources}
       <div class="content-flex">
         <h2 class="content-heading-vertical">Source</h2>
         <div class="subpanel-source-btns">
+          {#if scenes && $obsProjOutput == PROJECTOR_PREVIEW}
           {#each projectorSources as item}
             <button
               class:source-btn-on="{item.sceneItemEnabled}"
@@ -295,6 +309,22 @@
               {item.sourceName}
             </button>
           {/each}
+          {:else}
+          {#each projectorItemSources as item}
+            <button
+              class:source-btn-on="{item.sceneItemEnabled}"
+              class:source-btn-size="{true}"
+              class:btn-classic="{true}"
+              on:click="{() =>
+                ProjectorItemEnable(
+                  projectorSceneName,
+                  item.sceneItemId,
+                  !item.sceneItemEnabled,
+                )}">
+              {item.sourceName}
+            </button>
+          {/each}
+          {/if}
         </div>
       </div>
     {/if}
