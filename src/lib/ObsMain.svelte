@@ -32,6 +32,7 @@
   let projectorSources = [];
   let projectorItemSources = [];
   let programSources = [];
+  let projectorInputItem = '';
 
   onMount(async () => {
     let data;
@@ -42,14 +43,15 @@
 
       //if (!programSceneName) {
       data = await obsSendCommand('GetCurrentProgramScene');
-      ChangeProgramScene(data.currentProgramSceneName || '');
+      ProgramActivateScene(data.currentProgramSceneName || '');
       //}
       data = await obsSendCommand('GetStudioModeEnabled');
       if (data && data.studioModeEnabled) {
         isStudioMode = true;
         if ($obsProjOutput == PROJECTOR_PREVIEW) {
+          // In preview mode, activate projector scene from preview
           data = await obsSendCommand('GetCurrentPreviewScene');
-          ChangeProjectorScene(data.currentPreviewSceneName || '');
+          ProjectorActivateScene(data.currentPreviewSceneName || '');
         }
       }
       let monitorlist = await obsSendCommand('GetMonitorList');
@@ -68,7 +70,8 @@
       }
 
       if ($obsProjOutput > PROJECTOR_PREVIEW && $obsProjScene) {
-        ChangeProjectorScene($obsProjScene);
+          // In projector mode, activate projector scene selected scene
+          ProjectorActivateScene($obsProjScene);
       }
       screenshotInterval = setInterval(getScreenshot, 1000);
     }
@@ -78,33 +81,94 @@
     clearInterval(screenshotInterval);
   });
 
-  async function SelectProgram(name) {
-    console.log('SetCurrentProgram' + '(' + name + ')');
-    await obsSendCommand('SetCurrentProgramScene', { sceneName: name });
-  }
-
-  async function ShowProjector(name) {
-    console.log(
-      'OpenSourceProjector(Scene, ' +
-        name +
-        ', ' +
-        ($obsProjOutput - PROJECTOR_FIRST_DISPLAY) +
-        ')',
-    );
-    ChangeProjectorScene(name);
+  /*
+   * Projector
+   */
+  async function ProjectorCreate(name) {
+    ProjectorActivateScene(name);
     await obsSendCommand('OpenSourceProjector', {
       sourceName: name,
       monitorIndex: $obsProjOutput - PROJECTOR_FIRST_DISPLAY,
     });
   }
 
-  async function SelectProjector(name) {
-    console.log('SetCurrentProjector(' + name + ')');
-    if ($obsProjOutput == PROJECTOR_PREVIEW) {
-      await obsSendCommand('SetCurrentPreviewScene', { sceneName: name });
-    } else if ($obsProjOutput > PROJECTOR_NONE) {
+  async function ProjectorSetScene(scene_name, item) {
+    console.log('ProjectorSetScene(' + scene_name + ')');
+    if (!item && projectorSources.length > 0) {
+      item = projectorSources[0];
+    }
+
+    for (let i = 0; i < projectorSources.length; i++) {
+      if (projectorSources[i].sceneItemId == item.sceneItemId) {
+        projectorInputItem = projectorSources[i].sourceName;
+        projectorItemSources = await GetSources(projectorInputItem);
+      } else {
+        await SceneSourceEnable(
+          scene_name,
+          projectorSources[i].sceneItemId,
+          false,
+        );
+      }
+    }
+    await SceneSourceEnable(scene_name, item.sceneItemId, true);
+  }
+
+  async function ProjectorActivateScene(name) {
+    projectorSceneName = name;
+    projectorSources = await GetSources(name);
+    if ($obsProjOutput > PROJECTOR_PREVIEW) {
+      // In projector mode, set the projector input item and its sources
+      // from the (first) enabled pprojector source
+      for (let i = 0; i < projectorSources.length; i++) {
+        if (projectorSources[i].sceneItemEnabled) {
+          projectorInputItem = projectorSources[i].sourceName;
+          projectorItemSources = await GetSources(projectorInputItem);
+          break;
+        }
+      }
     }
   }
+
+  async function ProjectorSourceEnable(item, enabled) {
+    await SceneSourceEnable(projectorInputItem, item.sceneItemId, enabled);
+    projectorItemSources = await GetSources(projectorInputItem);
+  }
+
+  /*
+   * Preview
+   *
+   * A special case of projector, synchronized with OBS studio preview
+   */
+  async function PreviewSetScene(name) {
+    console.log('SetCurrentProjector(' + name + ')');
+    await obsSendCommand('SetCurrentPreviewScene', { sceneName: name });
+  }
+
+  async function PreviewSourceEnable(scene_name, item, enabled) {
+    await SceneSourceEnable(scene_name, item.sceneItemId, enabled);
+    // Set current scene for change to take effect on Preview
+    //await PreviewSetScene(scene_name);
+  }
+
+  /*
+   * Program
+   */
+  async function ProgramSetScene(name) {
+    console.log('SetCurrentProgram' + '(' + name + ')');
+    await obsSendCommand('SetCurrentProgramScene', { sceneName: name });
+  }
+
+  async function ProgramActivateScene(name) {
+    programSceneName = name;
+    programSources = await GetSources(name);
+  }
+
+  async function ProgramSourceEnable(scene_name, item_id, enabled) {
+    await SceneSourceEnable(scene_name, item_id, enabled);
+    // Set current scene for change to take effect on PROGRAM
+    //await ProgramSetScene(scene_name);
+  }
+
   // eslint-disable-next-line
   $: getScreenshot(), programSceneName, projectorSceneName;
 
@@ -119,19 +183,9 @@
     return sources;
   }
 
-  async function ChangeProjectorScene(name) {
-    projectorSceneName = name;
-    projectorSources = await GetSources(name);
-  }
-
-  async function ChangeProgramScene(name) {
-    programSceneName = name;
-    programSources = await GetSources(name);
-  }
-
-  async function SceneItemEnable(scene_name, item_id, enabled) {
+  async function SceneSourceEnable(scene_name, item_id, enabled) {
     console.log(
-      'SceneItemEnable(' + scene_name + ', ' + item_id + ', ' + enabled + ')',
+      'SceneSourceEnable(' + scene_name + ', ' + item_id + ', ' + enabled + ')',
     );
     await obsSendCommand('SetSceneItemEnabled', {
       sceneName: scene_name,
@@ -143,32 +197,11 @@
     }
   }
 
-  async function ProgramItemEnable(scene_name, item_id, enabled) {
-    await SceneItemEnable(scene_name, item_id, enabled);
-    // Set current scene for change to take effect on PROGRAM
-    await SelectProgram(scene_name);
-  }
-  async function ProjectorItemEnable(scene_name, item_id, enabled) {
-    await SceneItemEnable(scene_name, item_id, true);
-    projectorItemSources = await GetSources(scene_name);
-    for (let i = 0; i < projectorSources.length; i++) {
-      if (projectorSources[i].sceneItemId == item_id) {
-        projectorItemSources = await GetSources(projectorSources[i].sourceName);
-      }
-      if (projectorSources[i].sceneItemId != item_id) {
-        await SceneItemEnable(scene_name,
-          projectorSources[i].sceneItemId, false);
-      }
-    }
-    
-    await SceneItemEnable(scene_name, item_id, enabled);
-  }
-
   obs.on('StudioModeStateChanged', async (data) => {
     //console.log("StudioModeStateChanged", data.studioModeEnabled);
     isStudioMode = data.studioModeEnabled;
     if (isStudioMode) {
-      //ChangeProjectorScene(programSceneName);
+      //ProjectorActivateScene(programSceneName);
     }
   });
 
@@ -179,20 +212,37 @@
 
   obs.on('CurrentPreviewSceneChanged', async (data) => {
     if ($obsProjOutput == PROJECTOR_PREVIEW) {
-      ChangeProjectorScene(data.sceneName);
+      // In preview mode, sync preview with projector view
+      ProjectorActivateScene(data.sceneName);
     }
   });
 
   obs.on('CurrentProgramSceneChanged', async (data) => {
     //console.log("CurrentProgramSceneChanged", data.sceneName);
-    await ChangeProgramScene(data.sceneName);
+    await ProgramActivateScene(data.sceneName);
+  });
+
+  obs.on('SceneItemEnableStateChanged', async (data) => {
+    //console.log("CurrentProgramSceneChanged", data.sceneName);
+    if (data.sceneName === programSceneName) {
+      ProgramActivateScene(data.sceneName);
+    }
+    if ($obsProjOutput == PROJECTOR_PREVIEW && data.sceneName === projectorSceneName) {
+      ProjectorActivateScene(data.sceneName);
+    }
+    if (
+      $obsProjOutput > PROJECTOR_PREVIEW && data.sceneName === projectorInputItem) {
+      // In this case, projectorInputItem is in projectorSceneName and
+      // we want to activate projectorSceneName
+      ProjectorActivateScene(projectorSceneName);
+    }
   });
 
   obs.on('SceneNameChanged', async (data) => {
     if (data.oldSceneName === programSceneName)
-      ChangeProgramScene(data.sceneName);
+      ProgramActivateScene(data.sceneName);
     if (data.oldSceneName === projectorSceneName)
-      ChangeProjectorScene(data.sceneName);
+      ProjectorActivateScene(data.sceneName);
     for (let i = 0; i < scenes.length; i++) {
       if (scenes[i].sceneName === data.oldSceneName) {
         scenes[i].sceneName = data.sceneName;
@@ -242,13 +292,13 @@
         {/each}
       </select>
       {#if $obsProjOutput > PROJECTOR_PREVIEW && scenes}
-        <button on:click="{() => ShowProjector($obsProjScene)}">
+        <button on:click="{() => ProjectorCreate($obsProjScene)}">
           Show</button
         ><br />
         <select
           bind:value="{$obsProjScene}"
           title="ProjScene"
-          on:change="{() => ChangeProjectorScene($obsProjScene)}">
+          on:change="{() => ProjectorActivateScene($obsProjScene)}">
           {#each scenes as scene}
             <option>{scene.sceneName}</option>
           {/each}
@@ -269,7 +319,7 @@
             <button
               class:btn-classic="{true}"
               class:projector-btn-on="{scene.sceneName == projectorSceneName}"
-              on:click="{() => SelectProjector(scene.sceneName)}">
+              on:click="{() => PreviewSetScene(scene.sceneName)}">
               {scene.sceneName}
             </button>
           {/each}
@@ -278,12 +328,7 @@
             <button
               class:btn-classic="{true}"
               class:projector-btn-on="{item.sceneItemEnabled}"
-              on:click="{() =>
-                ProjectorItemEnable(
-                  projectorSceneName,
-                  item.sceneItemId,
-                  !item.sceneItemEnabled,
-                )}">
+              on:click="{() => ProjectorSetScene(projectorSceneName, item)}">
               {item.sourceName}
             </button>
           {/each}
@@ -295,35 +340,34 @@
         <h2 class="content-heading-vertical">Source</h2>
         <div class="subpanel-source-btns">
           {#if scenes && $obsProjOutput == PROJECTOR_PREVIEW}
-          {#each projectorSources as item}
-            <button
-              class:source-btn-on="{item.sceneItemEnabled}"
-              class:source-btn-size="{true}"
-              class:btn-classic="{true}"
-              on:click="{() =>
-                ProjectorItemEnable(
-                  projectorSceneName,
-                  item.sceneItemId,
-                  !item.sceneItemEnabled,
-                )}">
-              {item.sourceName}
-            </button>
-          {/each}
+            {#each projectorSources as item}
+              <button
+                class:source-btn-on="{item.sceneItemEnabled}"
+                class:source-btn-size="{true}"
+                class:btn-classic="{true}"
+                on:click="{() =>
+                  PreviewSourceEnable(
+                    projectorSceneName,
+                    item,
+                    !item.sceneItemEnabled,
+                  )}">
+                {item.sourceName}
+              </button>
+            {/each}
           {:else}
-          {#each projectorItemSources as item}
-            <button
-              class:source-btn-on="{item.sceneItemEnabled}"
-              class:source-btn-size="{true}"
-              class:btn-classic="{true}"
-              on:click="{() =>
-                ProjectorItemEnable(
-                  projectorSceneName,
-                  item.sceneItemId,
-                  !item.sceneItemEnabled,
-                )}">
-              {item.sourceName}
-            </button>
-          {/each}
+            {#each projectorItemSources as item}
+              <button
+                class:source-btn-on="{item.sceneItemEnabled}"
+                class:source-btn-size="{true}"
+                class:btn-classic="{true}"
+                on:click="{() =>
+                  ProjectorSourceEnable(
+                     item,
+                    !item.sceneItemEnabled,
+                  )}">
+                {item.sourceName}
+              </button>
+            {/each}
           {/if}
         </div>
       </div>
@@ -337,12 +381,11 @@
     <div class="subpanel-2row-flow">
       {#if scenes}
         {#each scenes as scene}
-          {#if $obsProjOutput < PROJECTOR_FIRST_DISPLAY 
-          || $obsProjScene != scene.sceneName}
+          {#if $obsProjOutput < PROJECTOR_FIRST_DISPLAY || $obsProjScene != scene.sceneName}
             <button
               class:btn-classic="{true}"
               class:program-btn-on="{scene.sceneName == programSceneName}"
-              on:click="{() => SelectProgram(scene.sceneName)}">
+              on:click="{() => ProgramSetScene(scene.sceneName)}">
               {scene.sceneName}
             </button>
           {/if}
@@ -360,7 +403,7 @@
             class:source-btn-size="{true}"
             class:btn-classic="{true}"
             on:click="{() =>
-              ProgramItemEnable(
+              ProgramSourceEnable(
                 programSceneName,
                 item.sceneItemId,
                 !item.sceneItemEnabled,
