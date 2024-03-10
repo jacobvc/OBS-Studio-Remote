@@ -122,7 +122,7 @@
         class="vertical"
         min="1"
         max="100"
-        value="20"
+        value="10"
         placeholder="50" />
     </div>
     <div class="ptz-btns-group">
