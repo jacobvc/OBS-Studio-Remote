@@ -1,4 +1,5 @@
 <script>
+  let ObsStudioRemoteVersion = 1.4;
   import './style.css';
 
   import PtzCamera from './lib/PtzCamera.svelte';
@@ -291,7 +292,7 @@
       <div
         class="container"
         style="margin-top: 7px; background-color: transparent;">
-        <h1>OBS Studio Remote</h1>
+        <h1>OBS Studio Remote Version {ObsStudioRemoteVersion}</h1>
       </div>
     {/if}
     <button

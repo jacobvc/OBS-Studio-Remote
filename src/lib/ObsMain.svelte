@@ -29,13 +29,13 @@
 
   let projectorSceneName = ''; // Current scene name for projector
 
-  let projectorSources = [];    // Sources in projectorSceneName for non-preview projector
-  let projectorSelection = '';  // Selected item in projectorSources
+  let projectorSources = []; // Sources in projectorSceneName for non-preview projector
+  let projectorSelection = ''; // Selected item in projectorSources
   let projectorSelectionSources = []; // Sources in projectorSelection
 
-  let programSceneName = '';   // Current scene name for program
-  let programSources = [];      // Sources for program
-  
+  let programSceneName = ''; // Current scene name for program
+  let programSources = []; // Sources for program
+
   onMount(async () => {
     let data;
 
@@ -72,8 +72,8 @@
       }
 
       if ($obsProjOutput > PROJECTOR_PREVIEW && $obsProjScene) {
-          // In projector mode, activate projector scene selected scene
-          ProjectorActivateScene($obsProjScene);
+        // In projector mode, activate projector scene selected scene
+        ProjectorActivateScene($obsProjScene);
       }
       screenshotInterval = setInterval(getScreenshot, 1000);
     }
@@ -230,11 +230,16 @@
     if (data.sceneName === programSceneName) {
       ProgramActivateScene(data.sceneName);
     }
-    if ($obsProjOutput == PROJECTOR_PREVIEW && data.sceneName === projectorSceneName) {
+    if (
+      $obsProjOutput == PROJECTOR_PREVIEW &&
+      data.sceneName === projectorSceneName
+    ) {
       ProjectorActivateScene(data.sceneName);
     }
     if (
-      $obsProjOutput > PROJECTOR_PREVIEW && data.sceneName === projectorSelection) {
+      $obsProjOutput > PROJECTOR_PREVIEW &&
+      data.sceneName === projectorSelection
+    ) {
       // In this case, projectorSelection is in projectorSceneName and
       // we want to activate projectorSceneName
       ProjectorActivateScene(projectorSceneName);
@@ -356,18 +361,15 @@
                   )}">
                 {item.sourceName}
               </button>
-             {/each}
-         {:else}
+            {/each}
+          {:else}
             {#each projectorSelectionSources as item}
               <button
                 class:source-btn-on="{item.sceneItemEnabled}"
                 class:source-btn-size="{true}"
                 class:btn-classic="{true}"
                 on:click="{() =>
-                  ProjectorSourceEnable(
-                     item,
-                    !item.sceneItemEnabled,
-                  )}">
+                  ProjectorSourceEnable(item, !item.sceneItemEnabled)}">
                 {item.sourceName}
               </button>
             {/each}
@@ -382,7 +384,9 @@
     <h2 class="content-heading-vertical">Program</h2>
     <img bind:this="{program}" height="{imageHeight}" alt="Program" />
     <div class="subpanel-2row-flow">
-      {#if scenes}
+      {#if scenes && ($obsProjOutput == PROJECTOR_PREVIEW
+         || $obsProjOutput == PROJECTOR_NONE)
+      }
         {#each scenes as scene}
           {#if $obsProjOutput < PROJECTOR_FIRST_DISPLAY || $obsProjScene != scene.sceneName}
             <button
@@ -393,6 +397,15 @@
             </button>
           {/if}
         {/each}
+        {:else if projectorSources && $obsProjScene}
+          {#each projectorSources as item}
+            <button
+              class:btn-classic="{true}"
+              class:projector-btn-on="{item.sourceName == programSceneName}"
+              on:click="{() => ProgramSetScene(item.sourceName)}">
+              {item.sourceName}
+            </button>
+          {/each}
       {/if}
     </div>
   </div>
