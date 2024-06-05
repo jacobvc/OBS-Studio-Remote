@@ -401,7 +401,7 @@
           {#each projectorSources as item}
             <button
               class:btn-classic="{true}"
-              class:projector-btn-on="{item.sourceName == programSceneName}"
+              class:program-btn-on="{item.sourceName == programSceneName}"
               on:click="{() => ProgramSetScene(item.sourceName)}">
               {item.sourceName}
             </button>
